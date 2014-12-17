@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>台南市違規停車檢舉平台</title>
+    <meta name="triplebaby" content="台南違規停車檢舉再也不麻煩！讓我們教你怎麼終結三寶" />
+    <meta name="keywords" content="三寶, 檢舉, 拍照警察, 違規停車, 台南, 交通, 寶寶寶, 紅線, 黃線, APP, 停車位, 最瞎, 老人, 女人, 老女人, 交通大隊, 魏禎, 陳學誼, 詹欣達, 賴志維, illegal parking, 達達, 張天豪, dirty, 成大, 成大電機系, 成功大學, 壓線, 擋在我家門口, 我家門前有三寶, 靠北違規, 拖吊, 脫掉, 我要回家, app下載, 台灣, 賴清德" />
+    <link rel="stylesheet" href="css/reset.css"> 
+    <link rel="stylesheet" href="css/style.css"> 
+  </head>
+  <body>
+    <div class="wrapper">
+
+      <div class="header">台南市違規停車檢舉平台</div>
+      <div id="menu">
+
+        <div class="menu_item" id="report_tab" style="left:0">開始檢舉</div>
+        <div class="menu_item" id="all_tab" style="left:25%">所有檢舉</div>
+        <div class="menu_item" id="user_tab" style="left:50%">我的檢舉</div>
+        <div class="menu_item" id="contact_tab" style="left:75%">聯絡我們</div>
+        <div class="menu_item_tab"></div>
+      </div>
+
+      <div class="page" id="intro">
+        <div class="content">
+          <div class="form box">
+            <img src="img/tp_logo.png" class="logo">
+            <p id="description">
+              馬路三寶是ptt的流行用語，尤其流行於八卦版。其意思是鄉民們認為馬路上最會造成危險的三種人：女人、老人、老女人。<br>
+              該用法由來應不是起源自ptt，但約在2010年之後在八卦版開始常常出現，甚至只要出現「三寶」直接大家就會直接想到是馬路三寶。<br>
+            </p>
+          </div>
+          <button id="to_login_btn" class="green_btn">登入</button>
+        </div>
+      </div>
+
+      <div class="page" id="login">
+        <div class="content">
+          <div class="form box">
+            <img src="img/tp_logo.png" class="logo">
+            <input type="text" name="login_username" placeholder="帳號">
+            <input type="password" name="login_password" placeholder="密碼">
+            <div id="login_msg" class="msg"></div>
+            <button id="login_btn">登入</button>
+            <button id="to_signup_btn" class="green_btn">註冊</button>
+            <button id="back_home_btn">回首頁</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="page" id="signup">
+        <div class="content">
+          <div class="form box" id="form box">
+			<img src="img/signup_word.png" class="handwrite">
+            <input type="text" name="signup_username" placeholder="帳號">
+            <input type="password" name="signup_password" placeholder="密碼">
+            <div id="signup_1_msg" class="msg"></div>
+            <button id="signup_prev_btn">上一步</button>
+            <button id="signup_next_btn" class="green_btn">下一步</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="page" id="register">
+        <div class="content">
+          <div class="form box">
+			<img src="img/userdata_word.png" id="userdata_img"">
+            <input type="text" name="signup_name" placeholder="姓名">
+            <select name="signup_gender">
+              <option selected>性別</option>
+              <option value="1">男</option>
+              <option value="0">女</option>
+              <option value="2">其他</option>
+            </select>
+            <input type="text" name="signup_email" placeholder="電子郵件">
+            <input type="text" name="signup_phone" placeholder="電話">
+            <input type="text" name="signup_address" placeholder="地址">
+            <div id="signup_2_msg" class="msg"></div>
+            <button id="register_prev_btn">上一步</button>
+            <button id="signup_submit_btn" class="green_btn">送出</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="page" id="report">
+        <div class="content">
+          <h1>我要檢舉</h1>
+        </div>
+      </div>
+      <div class="page" id="all">
+        <div class="content">
+          <div class="report_item"></div>
+          <div class="report_item"></div>
+          <div class="report_item"></div>
+          <div class="report_item"></div>
+          <div class="report_item"></div>
+          <div class="report_item"></div>
+          <div class="report_item"></div>
+        </div>
+      </div>
+      <div class="page" id="user">
+        <div class="content">
+          <div class="report_item"></div>
+          <div class="report_item"></div>
+        </div>
+      </div>
+      <div class="page" id="contact">
+        <div class="content">
+          <h1>聯絡我們</h1>
+          <div class="form">
+            <textarea></textarea>
+            <button id="register_next_btn">送出</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="js/jquery.touchSwipe.min.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
