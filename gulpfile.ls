@@ -37,21 +37,22 @@ gulp.task \html ->
 
 gulp.task \css ->
   css-bower = gulp.src main-bower-files! .pipe gulp-filter \**/*.css
-  styl-app = gulp.src paths.app+\/**/*.styl .pipe gulp-stylus!
+  styl-app = gulp.src paths.app+\/css/*.styl .pipe gulp-stylus!
   streamqueue {+objectMode}
     .done css-bower, styl-app
     .pipe gulp-concat \app.css
-    .pipe gulp.dest paths.build
+    .pipe gulp.dest paths.build+\/css
     .pipe livereload!
 
 gulp.task \js ->
   js-bower = gulp.src main-bower-files! .pipe gulp-filter \**/*.js
+  ls-app = gulp.src paths.app+\/js/*.ls
   streamqueue {+objectMode}
     .done js-bower
     .pipe gulp-concat \app.js
-    .pipe gulp.dest paths.build
+    .pipe gulp.dest paths.build+\/js
     .pipe livereload!
-  gulp.src paths.app+\/**/*.ls .pipe gulp-livescript {+bare}
+  gulp.src paths.app+\/*.ls .pipe gulp-livescript {+bare}
     .pipe gulp.dest paths.build
     .pipe livereload!
 
