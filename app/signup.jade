@@ -1,0 +1,51 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    title 台南市違規停車檢舉平台
+    link(rel='stylesheet' href='app.css')
+  body
+    .wrapper
+      .ui.menu.fixed.inverted#header
+        a.item(href='./') TCR
+        .right.menu
+          a.item(href='about.html') 關於
+          a.item(href='contact.html') 聯絡我們
+      .ui.one.column.grid.centered
+        .column
+          .ui.form.segment
+            .ui.dividing.header 註冊
+            .field
+              label 姓名
+              input(type='text' placeholder='姓名')
+            .field
+              label 性別
+              .ui.selection.dropdown
+                input(type='hidden' name='gender')
+                .default.text 性別
+                .menu
+                  .item(data-value='1') 男
+                  .item(data-value='2') 女
+            .field
+              label 信箱
+              input(type='text' placeholder='信箱')
+            .field
+              label 帳號
+              input(type='text' placeholder='帳號')
+            .field
+              label 電話
+              input(type='text' placeholder='電話')
+            .field
+              label 地址
+              input(type='text' placeholder='地址')
+            .field
+              label 密碼
+              input(type='password' placeholder='密碼')
+            .ui.teal.submit.button 註冊
+
+
+    script(src="app.js")
+    script(src="sign.js")
+        
+

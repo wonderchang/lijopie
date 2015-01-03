@@ -1,0 +1,28 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    title 台南市違規停車檢舉平台
+    link(rel='stylesheet' href='app.css')
+  body
+    .wrapper
+      .ui.menu.fixed.inverted#header
+        a.item(href='./') TCR
+        .right.menu
+          a.item(href='about.html') 關於
+          a.item(href='contact.html') 聯絡我們
+      .ui.page.center.aligned.grid#cover
+        .column.first-section
+          h1#title 台南市違規停車檢舉平台
+          h2.ui.header WE JUST WANT A BETTER CITY
+          a.ui.button.teal.massive(href="login.html") 我要檢舉! GO!
+      .ui.page.grid#latest-report
+        h2.ui.header 最新檢舉
+        .doubling.four.column.row#latest-report-content
+
+
+    script(src="app.js")
+    script(src="index.js")
+        
+

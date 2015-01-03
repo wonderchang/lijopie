@@ -1,0 +1,36 @@
+{
+  "name": "triplebaby",
+  "version": "0.0.1",
+  "author": "Wonder Chang <iwonder.tw@gmail.com",
+  "devDependencies": {
+    "bower": "~1.2.7",
+    "connect-livereload": "~0.3.2",
+    "express": "~3.4.8",
+    "gulp": "~3.5.5",
+    "gulp-concat": "~2.1.7",
+    "gulp-filter": "~0.3.1",
+    "gulp-jade": "~0.4.2",
+    "gulp-livereload": "~1.2.0",
+    "gulp-livescript": "~0.2.0",
+    "gulp-markdown": "~0.1.2",
+    "gulp-print": "~1.0.3",
+    "gulp-rename": "~1.2.0",
+    "gulp-shell": "~0.2.9",
+    "gulp-stylus": "~0.0.13",
+    "gulp-util": "~2.2.14",
+    "LiveScript": "~1.2.0",
+    "main-bower-files": "~1.0.1",
+    "nib": "~1.0.1",
+    "npm": "~1.3.11",
+    "streamqueue": "~0.0.4",
+    "tiny-lr": "0.0.5"
+  },
+  "scripts": {
+    "build": "node_modules/.bin/gulp --require LiveScript build",
+    "postinstall": "node_modules/.bin/bower i",
+    "start": "node_modules/.bin/gulp --require LiveScript watch",
+    "watch": "node_modules/.bin/gulp --require LiveScript watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "MIT"
+}

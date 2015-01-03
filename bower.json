@@ -1,0 +1,22 @@
+{
+  "name": "triplebaby",
+  "dependencies": {
+    "jquery": "~2.0.3",
+    "jquery-stylesheet": "~0.3.5",
+    "reset-css": "~2.0.20110126",
+    "semantic-ui": "~0.13.0",
+    "c3": "~0.2.4"
+  },
+  "overrides": {
+    "jquery-stylesheet": {
+      "main": "jquery.stylesheet.js"
+    },
+    "semantic-ui": {
+      "main": "build/packaged/**/*"
+    },
+    "c3": {
+      "main": ["c3.css", "c3.js"]
+    }
+  },
+  "version": "0.0.1"
+}
