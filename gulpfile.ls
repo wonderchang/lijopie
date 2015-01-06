@@ -1,7 +1,7 @@
 require! <[gulp main-bower-files gulp-concat gulp-filter gulp-jade gulp-livereload gulp-livescript gulp-markdown gulp-print gulp-rename gulp-stylus gulp-util streamqueue tiny-lr]>
 
-port = 98765
-tiny-lr-port = 35731
+port = 9999
+tiny-lr-port = 35729
 
 paths =
   app: \app

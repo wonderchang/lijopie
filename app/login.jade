@@ -17,13 +17,19 @@ html
           .ui.form.segment
             .field
               label 帳號
-              input(type='text' placeholder='帳號')
+              input(type='text' placeholder='ID')
             .field
               label 密碼
-              input(type='password' placeholder='密碼')
-            .ui.teal.button 登入
-            a.ui.red.button.link(href='forgot.html') 忘記密碼
-            a.ui.blue.button.link(href='signup.html') 我要註冊
+              input(type='password' placeholder='password')
+            .ui.header
+               .ui.section.divider
+            .ui.header 
+              .ui.animated.button
+                .visible.content 登入
+                .hidden.content 
+                  i.right.arrow.icon
+               a.ui.button.link(href='forgot.html') 忘記密碼?
+               a.ui.button.link(href='signup.html') 我要註冊
 
     script(src="js/app.js")
     script(src="login.js")
