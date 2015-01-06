@@ -43,6 +43,8 @@ gulp.task \css ->
     .pipe gulp-concat \app.css
     .pipe gulp.dest paths.build+\/css
     .pipe livereload!
+  gulp.src paths.app+\/*.styl .pipe gulp-stylus!
+    .pipe gulp.dest paths.build
 
 gulp.task \js ->
   js-bower = gulp.src main-bower-files! .pipe gulp-filter \**/*.js
