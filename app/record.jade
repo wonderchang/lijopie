@@ -1,0 +1,48 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    title 台南市違規停車檢舉平台
+    link(rel='stylesheet' href='css/app.css')
+    link(rel='stylesheet' href='record.css')
+  body
+    .wrapper
+      .ui.menu.fixed.inverted#header
+        a.item(href='./')#title_logo 
+         img(src="../res/title_logo.png")
+        .right.menu
+          a.item(href='report.html') 我要檢舉
+          a.item(href='contact.html') 聯絡我們
+      div(style="padding-top: 100px")
+        table.ui.table#table
+          thead
+            tr
+              th 檢舉照片
+              th 檢舉時間
+              th 處理狀態
+              th 完成日期
+          tbody
+            tr
+              td
+                img(src='res/demo1.jpg' width='100')
+              td 2014/11/31 20:33:45
+              td.icon.checkmark.positive 已受理
+            tr
+              td
+                img(src='res/demo1.jpg' width='100')
+              td 2014/12/31 09:33:45
+              td.negative 尚未受理
+            tr
+              td
+                img(src='res/demo1.jpg' width='100')
+              td 2014/11/31 20:33:45
+              td.icon.checkmark.positive 已受理
+            tr
+              td
+                img(src='res/demo1.jpg' width='100')
+              td 2014/11/31 20:33:45
+              td.error 
+                i.attention.icon 
+                  
+
