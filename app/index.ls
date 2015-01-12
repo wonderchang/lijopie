@@ -13,6 +13,7 @@ $ document .ready ->
   $ \#cover-section .css \padding-top, padding-shift+\px
   $ \#cover-section .css \padding-bottom, padding-shift+\px
 
+  $ \#report-btn .click !-> login!
 
   for i to 7
     append-latest-report {
