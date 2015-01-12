@@ -17,9 +17,10 @@ gulp.task \watch <[build server]> ->
   gulp.watch paths.app+\/**/*.jade, <[html]>
   gulp.watch paths.app+\/**/*.styl, <[css]>
   gulp.watch paths.app+\/**/*.ls, <[js]>
+  gulp.watch paths.app+\/**/*.php, <[php]>
   gulp.watch paths.app+\/res/**, <[res]>
 
-gulp.task \build <[html css js res]>
+gulp.task \build <[html css js php res]>
 gulp.task \server ->
   require! \express
   express-server = express!
@@ -48,15 +49,20 @@ gulp.task \css ->
 
 gulp.task \js ->
   js-bower = gulp.src main-bower-files! .pipe gulp-filter \**/*.js
+  js-app = gulp.src paths.app+\/js/*.js
   ls-app = gulp.src paths.app+\/ls/*.ls .pipe gulp-livescript {+bare}
   streamqueue {+objectMode}
-    .done js-bower, ls-app
+    .done js-bower, js-app, ls-app
     .pipe gulp-concat \app.js
     .pipe gulp.dest paths.build+\/js
     .pipe livereload!
   gulp.src paths.app+\/*.ls .pipe gulp-livescript {+bare}
     .pipe gulp.dest paths.build
     .pipe livereload!
+
+gulp.task \php ->
+  gulp.src paths.app+\/php/**/*.php
+    .pipe gulp.dest paths.build+\/php
 
 gulp.task \res ->
   gulp.src main-bower-files!, { base: \./bower_components } .pipe gulp-filter \**/fonts/*
