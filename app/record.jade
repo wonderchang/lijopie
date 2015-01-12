@@ -10,12 +10,12 @@ html
     .wrapper
       .ui.menu.fixed.inverted#header
         a.item(href='./')#title_logo 
-         img(src="../res/title_logo.png")
+         img(src="res/title_logo.png")
         .right.menu
           a.item(href='report.html') 我要檢舉
           a.item(href='contact.html') 聯絡我們
       div(style="padding-top: 100px")
-        table.ui.table#table
+        table.ui.table.grid#table
           thead
             tr
               th 檢舉照片
@@ -27,7 +27,7 @@ html
               td
                 img(src='res/demo1.jpg' width='100')
               td 2014/11/31 20:33:45
-              td.icon.checkmark.positive 已受理
+              td 已受理
             tr
               td
                 img(src='res/demo1.jpg' width='100')
