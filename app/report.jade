@@ -12,7 +12,7 @@ html
         a.item(href='./')#title_logo
           img(src="res/title_logo.png")
         .right.menu
-          a.item 開始檢舉
+          a.item#start-report 開始檢舉
       .ui.page.center.aligned.grid#container
         h1.ui.header#title 檢舉必勝3重點
         p.ui.red.tag.label#tag 角度是關鍵
@@ -42,5 +42,14 @@ html
           .column
             img(src="res/car_head.jpg") 
         h4.ui.header 注意要清楚拍到紅線、黃線等違規證據! 若在夜間、燈光昏暗的地方，要記得打開閃光燈
+
+        div.ui.section.divider
+
+        div(style="display: none")
+          form#form(enctype="multipart/form-data" method="post")
+            input#file-to-upload(type="file" capture="camera")
+
+    script(src="js/app.js")
+    script(src="report.js")
 
 //- vi:et:nowrap:sw=2:ts=2        
