@@ -4,8 +4,8 @@ html
     meta(charset='utf-8')
     meta(name='viewport' content='width=device-width, initial-scale=1.0')
     title 台南市違規停車檢舉平台
-    link(rel='stylesheet' href='css/app.css')
-    link(rel='stylesheet' href='start.css')
+    link(rel='stylesheet' href='app.css')
+    link(rel='stylesheet' href='report.css')
   body
     .wrapper
       .ui.menu.fixed.inverted#header
@@ -48,8 +48,17 @@ html
         div(style="display: none")
           form#form(enctype="multipart/form-data" method="post")
             input#file-to-upload(type="file" capture="camera")
+    .ui.modal#modal-progress
+      i.close.icon
+      .header 照片上傳進度
+      .content
+        .ui.progress.teal#example1(data-percent='75')
+          .bar
+          .label 75 %
+      .actions
+        .ui.button.red 取消
 
-    script(src="js/app.js")
+    script(src="app.js")
     script(src="report.js")
 
 //- vi:et:nowrap:sw=2:ts=2        

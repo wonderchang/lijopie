@@ -3,6 +3,10 @@ $ \#start-report .click ->
   document.get-element-by-id \file-to-upload .click!
 
 $ \#file-to-upload .change ->
+  $ \#modal-progress
+    .modal do
+      on-show: !-> $ \#example1 .progress!
+    .modal \show
   fd = new Form-data!
   fd.append \photo, document.get-element-by-id(\file-to-upload).files.0
   xhr = new XML-http-request!
@@ -14,7 +18,7 @@ $ \#file-to-upload .change ->
   xhr.send fd
 
 function upload-progress
-  console.log it
+  percent-complete = Math.round it.loaded * 100 / it.total
 
 function upload-complete
   console.log it

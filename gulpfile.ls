@@ -38,23 +38,22 @@ gulp.task \html ->
 
 gulp.task \css ->
   css-bower = gulp.src main-bower-files! .pipe gulp-filter \**/*.css
-  styl-app = gulp.src paths.app+\/styl/*.styl .pipe gulp-stylus!
+  styl-app = gulp.src paths.app+\/app.styl .pipe gulp-stylus!
   streamqueue {+objectMode}
     .done css-bower, styl-app
     .pipe gulp-concat \app.css
-    .pipe gulp.dest paths.build+\/css
+    .pipe gulp.dest paths.build
     .pipe livereload!
   gulp.src paths.app+\/*.styl .pipe gulp-stylus!
     .pipe gulp.dest paths.build
 
 gulp.task \js ->
   js-bower = gulp.src main-bower-files! .pipe gulp-filter \**/*.js
-  js-app = gulp.src paths.app+\/js/*.js
-  ls-app = gulp.src paths.app+\/ls/*.ls .pipe gulp-livescript {+bare}
+  ls-app = gulp.src paths.app+\/app.ls .pipe gulp-livescript {+bare}
   streamqueue {+objectMode}
-    .done js-bower, js-app, ls-app
+    .done js-bower, ls-app
     .pipe gulp-concat \app.js
-    .pipe gulp.dest paths.build+\/js
+    .pipe gulp.dest paths.build
     .pipe livereload!
   gulp.src paths.app+\/*.ls .pipe gulp-livescript {+bare}
     .pipe gulp.dest paths.build
@@ -65,9 +64,8 @@ gulp.task \php ->
     .pipe gulp.dest paths.build+\/php
 
 gulp.task \res ->
-  gulp.src main-bower-files!, { base: \./bower_components } .pipe gulp-filter \**/fonts/*
-    .pipe gulp-rename -> it.dirname = ''
-    .pipe gulp.dest paths.build+\/fonts
+  gulp.src \bower_components/semantic-ui/dist/themes/**
+    .pipe gulp.dest paths.build+\/themes
   gulp.src paths.app+\/res/**
     .pipe gulp.dest paths.build+\/res
 
