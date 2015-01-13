@@ -9,12 +9,12 @@ $ document .ready ->
   cover-pb = (($ \#cover-section .css \padding-bottom) / 'px').0
   cover-mt = (($ \#cover-section .css \margin-top) / 'px').0
   cover-mb = (($ \#cover-section .css \margin-bottom) / 'px').0
-  padding-shift = (h + 16 - cover-h - cover-mt - cover-mb) / 2
+  padding-shift = (h - cover-h - cover-mt - cover-mb) / 2
   $ \#cover-section .css \padding-top, padding-shift+\px
   $ \#cover-section .css \padding-bottom, padding-shift+\px
 
   $ \#report-btn .click !-> login!
-
+  /*
   for i to 7
     append-latest-report {
       img: \res/demo1.jpg
@@ -22,6 +22,7 @@ $ document .ready ->
       region: \東區
       type: \紅線違規停車
     }
+  */
 
   function append-latest-report
     img = $ "<div>" .add-class \report-img

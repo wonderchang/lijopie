@@ -19,27 +19,11 @@ $ \#file-to-upload .change ->
   $ \#progress .progress percent: percent
 
 !function upload-complete
-  image = it.current-target.response
+  img = it.current-target.response
   set-timeout !->
-    $ \#modal-progress .modal \hide
-    $ \#modal-verify
-      .modal do
-        on-approve: !->
-          $ \#modal-verify .modal \hide
-          $ \#modal-form
-            .modal do
-              on-approve: !->
-                $ \#modal-form .modal \hide
-                $ \#modal-ready .modal \show
-            .modal \show
-      .modal \show
-    $ '#upload-photo'
-      .attr \src, "uploads/#image"
-      .css \height, (window.inner-height*0.6)+'px'
-    set-timeout !->
-      $ \#progress .progress percent: 0
-      $ '#progress .label' .text "0 %"
-    , 1000
+    modal-photo img
+    $ \#progress .progress percent: 0
+    $ '#progress .label' .text "0 %"
   , 1000
 
 !function upload-failed
@@ -48,4 +32,43 @@ $ \#file-to-upload .change ->
 !function upload-canceled
   console.log it
 
+!function modal-photo
+  $ \#modal-progress
+    .modal \hide
+  $ '#upload-photo'
+    .attr \src, "uploads/#{it}"
+    .css \height, (window.inner-height*0.6)+'px'
+  $ \#modal-photo
+    .modal do
+      on-approve: modal-form
+      on-deny: cancel-all-form
+    .modal \show
 
+!function modal-form
+  $ \#modal-photo
+    .modal \hide
+  $ \#modal-form
+    .modal do
+      on-approve: modal-verify
+      on-deny: cancel-all-form
+    .modal \show
+
+!function modal-verify
+  $ \#modal-form
+    .modal \hide
+  $ \#modal-verify
+    .modal do
+      on-approve: modal-submit
+      on-deny: cancel-all-form
+    .modal \show
+
+!function modal-submit
+  $ \#modal-verify
+    .modal \hide
+  $ \#modal-submit
+    .modal do
+      on-approve: cancel-all-form
+    .modal \show
+
+!function cancel-all-form
+  console.log \wefe
