@@ -22,6 +22,42 @@ html
           #sub-title-2 Report illegal parking right away!
           a.ui.button.teal.massive#report-btn 我要檢舉! GO!
 
+      .ui.modal#login
+        i.close.icon
+        .header 登入
+        .content
+          .ui.segment.form
+            .field
+              label 帳號
+              input(type='text' placeholder='帳號')
+            .field
+              label 密碼
+              input(type='password' placeholder='密碼')
+        .actions
+          button.ui.button.blue.approve 登入
+          button.ui.button.teal.deny 註冊
+
+      .ui.modal#signup
+        i.close.icon
+        .header 註冊
+        .content
+          .ui.segment.form
+            .field
+              label 姓名
+              input(type='text' placeholder='姓名')
+            .field
+              label 帳號
+              input(type='text' placeholder='帳號')
+            .field
+              label 密碼
+              input(type='password' placeholder='密碼')
+            .field
+              label 電子信箱
+              input(type='email' placeholder='電子信箱')
+        .actions
+          button.ui.button.blue.deny 登入
+          button.ui.button.teal.approve 註冊
+
        
     script(src="app.js")
     script(src="index.js")

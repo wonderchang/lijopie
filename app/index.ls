@@ -13,7 +13,42 @@ $ document .ready ->
   $ \#cover-section .css \padding-top, padding-shift+\px
   $ \#cover-section .css \padding-bottom, padding-shift+\px
 
-  $ \#report-btn .click !-> login!
+  # Login and signup
+  $ \#report-btn .click !-> show-login!
+
+  /*
+  $.ajax do
+    url: \php/check-cookie.php
+    type: \POST
+    data: cookie: cookie.get!
+    success: ->
+      if it is 0
+        $ \#login .modal \show
+      else if it is 1
+        location.href = "#host/report.html"
+  */
+
+
+  !function show-login
+    $ \#signup
+      .modal \hide
+    $ \#login
+      .modal do
+        on-approve: !-> console.log \logining
+        on-deny: !-> show-signup!
+      .modal \show
+
+  !function show-signup
+    $ \#login
+      .modal \hide
+    $ \#signup
+      .modal do
+        on-approve: !-> console.log \signuping
+        on-deny: !-> show-login!
+      .modal \show
+
+
+
   /*
   for i to 7
     append-latest-report {
