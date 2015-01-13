@@ -62,8 +62,38 @@ html
         .ui.median.image
           img#upload-photo(src='')
       .actions
-        .ui.button.red 取消
-        .ui.button.green 確定
+        .ui.button.red.deny 取消
+        .ui.button.green.approve 確定
+    .ui.modal#modal-form
+      i.close.icon
+      .header 檢舉資料填寫
+      .content
+        .ui.form
+          .field
+            input(type="text")
+          .field
+            input(type="text")
+          .field
+            input(type="text")
+          .field
+            input(type="text")
+          .field
+            input(type="text")
+      .actions
+        .ui.button.red.deny 取消
+        .ui.button.green.approve 確定
+    .ui.modal#modal-ready
+      i.close.icon
+      .header 檢舉資料填寫
+      .content
+        .ui.header wfewfwef
+        .ui.header wfewfwef
+        .ui.header wfewfwef
+        .ui.header wfewfwef
+        .ui.header wfewfwef
+      .actions
+        .ui.button.red.deny 取消
+        .ui.button.green.approve 確定
 
     script(src="app.js")
     script(src="report.js")
