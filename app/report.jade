@@ -14,14 +14,14 @@ html
         .right.menu
           a.item#start-report 開始檢舉
       .ui.page.center.aligned.grid#container
-        h1.ui.header#title 檢舉必勝3重點
+        h1.ui.header#title 拍照舉發3秘訣
         p.ui.red.tag.label#tag 角度是關鍵
         .three.column.centered.row
           .column
             img(src="res/car_head.jpg")
           .column
-            img(src="res/car_head.jpg") 
-        h4.ui.header 想要檢舉成功，一定要掌握好拍照的角度喔！要記得「汽車拍車頭、機車拍車尾」
+            img(src="res/moto.jpg") 
+        h3.ui.header 記得「汽車拍車頭,機車拍車尾」！最好整台車都拍進去！
 
         div.ui.section.divider
 
@@ -31,17 +31,17 @@ html
             img(src="res/car_head.jpg")
           .column
             img(src="res/car_head.jpg") 
-        h4.ui.header 注意要清楚拍到紅線、黃線等違規證據! 若在夜間、燈光昏暗的地方，要記得打開閃光燈
+        h3.ui.header 注意要清楚拍到紅線、黃線等違規證據！車牌也要清晰易辨識！若在夜間、燈光昏暗的地方，要記得打開閃光燈！
 
         div.ui.section.divider
 
-        a.ui.blue.tag.label#tag 證據要明顯 
+        a.ui.green.tag.label#tag 多照幾張不吃虧 
         .three.column.centered.row
           .column
             img(src="res/car_head.jpg")
           .column
             img(src="res/car_head.jpg") 
-        h4.ui.header 注意要清楚拍到紅線、黃線等違規證據! 若在夜間、燈光昏暗的地方，要記得打開閃光燈
+        h3.ui.header 為避免違規車主申訴，可以多照幾張「不同角度」的違規證據提供警方！讓違規車主無話可說！
 
         div.ui.section.divider
 
@@ -57,7 +57,7 @@ html
           .label 0 %
     .ui.modal#modal-verify
       i.close.icon
-      .header 檢舉照片確認
+      .header 檢舉相片確認
       .content
         .ui.median.image
           img#upload-photo(src='')
@@ -66,11 +66,27 @@ html
         .ui.button.green.approve 確定
     .ui.modal#modal-form
       i.close.icon
-      .header 檢舉資料填寫
+      .header 檢舉內容
       .content
         .ui.form
           .field
-            input(type="text")
+            .ui.selection.dropdown
+              .default.text 請選擇違規內容
+              i.dropdown.icon 
+              input(type="hidden" name="違規內容")
+              .menu
+                .item 紅線停車
+                .item 黃線停車
+                .item 公車站牌10公尺內停車
+                .item 交叉路口10公尺內停車
+                .item 行人穿越道10公尺內停車
+                .item 黃線併排
+                .item 紅線併排
+                .item 消防栓前停車
+                .item 彎道停車
+                .item 人行道停車
+                .item 停在殘障車位
+                .item 窄巷內停車
           .field
             input(type="text")
           .field
