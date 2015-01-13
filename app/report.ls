@@ -47,6 +47,9 @@ $ \#file-to-upload .change ->
 !function modal-form
   $ \#modal-photo
     .modal \hide
+  $ \#theme .dropdown!
+  $ \#region .dropdown!
+  $ \#checkbox .checkbox!
   $ \#modal-form
     .modal do
       on-approve: modal-verify
@@ -72,3 +75,5 @@ $ \#file-to-upload .change ->
 
 !function cancel-all-form
   console.log \wefe
+
+# vi:ei:ft=ls:nowrap:sw=2:ts=2
