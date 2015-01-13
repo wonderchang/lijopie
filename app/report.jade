@@ -52,11 +52,18 @@ html
       i.close.icon
       .header 照片上傳進度
       .content
-        .ui.progress.teal#example1(data-percent='75')
+        .ui.progress.teal#progress
           .bar
-          .label 75 %
+          .label 0 %
+    .ui.modal#modal-verify
+      i.close.icon
+      .header 檢舉照片確認
+      .content
+        .ui.median.image
+          img#upload-photo(src='')
       .actions
         .ui.button.red 取消
+        .ui.button.green 確定
 
     script(src="app.js")
     script(src="report.js")
