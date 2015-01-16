@@ -74,61 +74,60 @@ html
           .field
             select.ui.search.dropdown#region
               option(value="") 違規現場所在行政區
-              option(value="新營區") 新營區
-              option(value="鹽水區") 鹽水區
-              option(value="柳營區") 柳營區
-              option(value="白河區") 白河區
-              option(value="東山區") 東山區
-              option(value="後壁區") 後壁區
-              option(value="麻豆區") 麻豆區
-              option(value="下營區") 下營區
-              option(value="六甲區") 六甲區
-              option(value="官田區") 官田區
-              option(value="佳里區") 佳里區
-              option(value="西港區") 西港區
-              option(value="七股區") 七股區
-              option(value="學甲區") 學甲區
-              option(value="北門區") 北門區
-              option(value="將軍區") 將軍區
-              option(value="善化區") 善化區
-              option(value="安定區") 安定區
-              option(value="大內區") 大內區
-              option(value="新市區") 新市區
-              option(value="新化區") 新化區
-              option(value="山上區") 山上區
-              option(value="左鎮區") 左鎮區
-              option(value="仁德區") 仁德區
-              option(value="歸仁區") 歸仁區
-              option(value="關廟區") 關廟區
-              option(value="龍崎區") 龍崎區
-              option(value="玉井區") 玉井區
-              option(value="楠西區") 楠西區
-              option(value="南化區") 南化區
-              option(value="永康區") 永康區 
-              option(value="東區") 東區
-              option(value="中西區") 中西區
-              option(value="安平區") 安平區
-              option(value="北區") 北區
-              option(value="南區") 南區
-              option(value="安南區") 安南區
+              option(value="1") 東區
+              option(value="2") 北區
+              option(value="3") 南區
+              option(value="4") 中西區
+              option(value="5") 安南區
+              option(value="6") 安平區
+              option(value="7") 七股區
+              option(value="8") 下營區
+              option(value="9") 仁德區
+              option(value="10") 佳里區
+              option(value="11") 六甲區
+              option(value="12") 北門區
+              option(value="13") 南化區
+              option(value="14") 善化區
+              option(value="15") 大內區
+              option(value="16") 學甲區
+              option(value="17") 安定區
+              option(value="18") 官田區
+              option(value="19") 將軍區
+              option(value="20") 山上區
+              option(value="21") 左鎮區
+              option(value="22") 後壁區
+              option(value="23") 新化區
+              option(value="24") 新市區
+              option(value="25") 新營區
+              option(value="26") 東山區
+              option(value="27") 柳營區
+              option(value="28") 楠西區
+              option(value="29") 歸仁區
+              option(value="30") 永康區
+              option(value="31") 玉井區 
+              option(value="32") 白河區
+              option(value="33") 西港區
+              option(value="34") 關廟區
+              option(value="35") 鹽水區
+              option(value="36") 麻豆區
+              option(value="37") 龍崎區
           .field
             .ui.selection.dropdown#theme
               .default.text 請選擇違規內容
               i.dropdown.icon 
               input(type="hidden" name="違規內容")
               .menu
-                .item 紅線停車
-                .item 黃線停車
-                .item 公車站牌10公尺內停車
-                .item 交叉路口10公尺內停車
-                .item 行人穿越道10公尺內停車
-                .item 黃線併排
-                .item 紅線併排
-                .item 消防栓前停車
-                .item 彎道停車
-                .item 人行道停車
-                .item 停在殘障車位
-                .item 窄巷內停車
+                .item(data-value="1") 紅線停車
+                .item(data-value="2") 黃線停車
+                .item(data-value="3") 公車站牌10公尺內停車
+                .item(data-value="4") 交叉路口10公尺內停車
+                .item(data-value="5") 行人穿越道10公尺內停車
+                .item(data-value="6") 黃線併排
+                .item(data-value="7") 紅線併排
+                .item(data-value="8") 消防栓前停車
+                .item(data-value="9") 彎道停車
+                .item(data-value="10") 人行道停車
+                .item(data-value="11") 停在殘障車位
           .field
             label 違規內容補充(ex.車內無人、明確地址...等更加詳細的描述)
             textarea
