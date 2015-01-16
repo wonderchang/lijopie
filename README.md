@@ -73,3 +73,7 @@
 ### 3.違規內容補充
 
 (ex.車內無人、擋在停車場出入口...等等更加詳細的描述)
+
+##口號
+* Cross platform, no limits.
+* Let's do it easier!
