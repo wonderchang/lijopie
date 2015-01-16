@@ -1,7 +1,6 @@
 $ document .ready ->
 
   resize.cover!
-  $ \.dropdown .dropdown!
 
   $ \#signup-btn .click ->
     data = do

@@ -1,3 +1,4 @@
+$ \.dropdown .dropdown!
 
 resize = do
   cover: !->
@@ -36,6 +37,17 @@ cookie = do
     d.set-time d.get-time!+24*60*60*1000
     expires = 'expires='+d.to-GMT-string!
     document.cookie = this.cn+'='+it+';'+expires
+
+  check: ->
+    flag = false
+    $.ajax do
+      url: \php/check-cookie.php
+      type: \POST
+      data: cookie: this.get!
+      async: false
+      success: ->
+        flag := parseInt it
+    flag
 
 path = do
   dirname: ->
