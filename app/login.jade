@@ -5,7 +5,6 @@ html
     meta(name='viewport' content='width=device-width, initial-scale=1.0')
     title 台南市違規停車檢舉平台
     link(rel='stylesheet' href='app.css')
-    link(rel='stylesheet' href='index.css')
     script(src="app.js")
   body
     .wrapper
@@ -15,14 +14,21 @@ html
         .right.menu
           a.item(href='about.html') 關於
           a.item(href='contact.html') 聯絡我們
-        
-      .ui.page.center.aligned.grid.cover
+      .ui.page.grid.cover
         .column
-          #title 台南市違規停車檢舉平台 
-          #sub-title-1 哩足歹!立就拍!
-          #sub-title-2 Report illegal parking right away!
-          button.ui.button.teal.massive#report-btn 我要檢舉! GO!
+          .ui.segment.form
+            h1.ui.dividing.header 登入
+            .ui.error.message
+              .header 
+            .field.username
+              label 帳號
+              input(type='text' placeholder='帳號')
+            .field.password
+              label 密碼
+              input(type='password' placeholder='密碼')
+            button.ui.button.teal#login-btn 登入
+            a.ui.button.red(href="./signup.html") 我要註冊
 
-    script(src="index.js")
+    script(src="login.js")
 
 //- vi:et:nowrap:sw=2:ts=2 
