@@ -11,5 +11,5 @@ Step 3: $ npm start
 
 ## Haha
 
-1.Cross platform, no limits.
+1.Cross platform, no limits.</br>
 2.Let's do it easier!
