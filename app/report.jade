@@ -14,6 +14,7 @@ html
           img(src="res/title_logo.png")
         .right.menu
           a.item#start-report 開始檢舉
+          a.item(href="record.html") 我的檢舉
           a.item#logout 登出
       .ui.page.center.aligned.grid#container
         h1.ui.header#title 拍照舉發3秘訣
@@ -51,14 +52,12 @@ html
           form#form(enctype="multipart/form-data" method="post")
             input#file-to-upload(type="file" capture="camera")
     .ui.modal#modal-progress
-      i.close.icon
       .header 照片上傳進度
       .content
         .ui.progress.teal#progress
           .bar
           .label 0 %
     .ui.modal#modal-photo
-      i.close.icon
       .header 檢舉相片確認
       .content
         .ui.median.image
@@ -67,12 +66,12 @@ html
         .ui.button.red.deny 取消
         .ui.button.green.approve 確定
     .ui.modal#modal-form
-      i.close.icon
       .header 檢舉內容
-      .content
+      .content#region
         .ui.form
           .field
-            select.ui.search.dropdown#region
+            label 違規所在行政區
+            select(name="region").ui.search.dropdown
               option(value="") 違規現場所在行政區
               option(value="1") 東區
               option(value="2") 北區
@@ -111,11 +110,12 @@ html
               option(value="35") 鹽水區
               option(value="36") 麻豆區
               option(value="37") 龍崎區
-          .field
-            .ui.selection.dropdown#theme
+          .field#theme
+            label 違規內容
+            .ui.selection.dropdown
               .default.text 請選擇違規內容
               i.dropdown.icon 
-              input(type="hidden" name="違規內容")
+              input(type="hidden" name="theme")
               .menu
                 .item(data-value="1") 紅線停車
                 .item(data-value="2") 黃線停車
@@ -128,33 +128,23 @@ html
                 .item(data-value="9") 彎道停車
                 .item(data-value="10") 人行道停車
                 .item(data-value="11") 停在殘障車位
-          .field
+          .field#content
             label 違規內容補充(ex.車內無人、明確地址...等更加詳細的描述)
             textarea
-          .field
-            .ui.toggle.checkbox#checkbox
-              input(type="checkbox")
-              label 匿名將檢舉上傳網路平台
+          .field#anonymous
+            .ui.toggle.checkbox
+              input(type="checkbox" name="anonymous")
+              label 是否匿名檢舉
       .actions
         .ui.button.red.deny 取消
         .ui.button.green.approve 確定
-    .ui.modal#modal-verify
-      i.close.icon
-      .header 檢舉資料確認
-      .content
-        .ui.header wfewfwef
-        .ui.header wfewfwef
-        .ui.header wfewfwef
-        .ui.header wfewfwef
-        .ui.header wfewfwef
-      .actions
-        .ui.button.red.deny 取消
-        .ui.button.green.approve 送出
-    .ui.modal#modal-submit
-      i.close.icon
+    .ui.modal.small#modal-submit
       .header 檢舉成功
       .content
-        thank for reporting
+        .image
+          i.checkmark.green.large.icon
+        .description
+          .ui.header.large.our-centered 感謝您的檢舉。
       .actions
         .ui.button.teal.approve 確定
 

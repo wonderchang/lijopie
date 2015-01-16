@@ -1,4 +1,5 @@
 $ \.dropdown .dropdown!
+$ \.checkbox .checkbox!
 
 resize = do
   cover: !->
