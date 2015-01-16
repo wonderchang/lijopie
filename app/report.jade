@@ -4,9 +4,9 @@ html
     meta(charset='utf-8')
     meta(name='viewport' content='width=device-width, initial-scale=1.0')
     title 台南市違規停車檢舉平台
+    link(rel="shortcut icon" href="res/favicon.ico")
     link(rel='stylesheet' href='app.css')
     link(rel='stylesheet' href='report.css')
-    link(rel="shortcut icon" href="res/favicon.ico")
   body
     .wrapper
       .ui.menu.fixed.inverted#header
@@ -17,8 +17,8 @@ html
           a.item(href="record.html") 我的檢舉
           a.item#logout 登出
       .ui.page.center.aligned.grid#container
-        h1.ui.header#title 拍照舉發3秘訣
-        p.ui.red.tag.label#tag 角度是關鍵
+        h1.ui.header#title(style="font-size: 8vh") 拍照舉發 2 秘訣
+        .ui.red.tag.label.our-tag(style="font-size: 4vh") 角度是關鍵
         .three.column.centered.row
           .column
             img(src="res/car_head.jpg")
@@ -28,29 +28,20 @@ html
 
         div.ui.section.divider
 
-        a.ui.blue.tag.label#tag 證據要明顯 
+        .ui.blue.tag.label.our-tag(style="font-size: 4vh") 證據要明顯 
         .three.column.centered.row
           .column
-            img(src="res/car_head.jpg")
+            img(src="res/evidence_obvious1.jpg")
           .column
-            img(src="res/car_head.jpg") 
+            img(src="res/evidence_obvious2.jpg") 
         h3.ui.header 注意要清楚拍到紅線、黃線等違規證據！車牌也要清晰易辨識！若在夜間、燈光昏暗的地方，要記得打開閃光燈！
 
         div.ui.section.divider
 
-        a.ui.green.tag.label#tag 多照幾張不吃虧 
-        .three.column.centered.row
-          .column
-            img(src="res/car_head.jpg")
-          .column
-            img(src="res/car_head.jpg") 
-        h3.ui.header 為避免違規車主申訴，可以多照幾張「不同角度」的違規證據提供警方！讓違規車主無話可說！
+    div(style="display: none")
+      form#form(enctype="multipart/form-data" method="post")
+        input#file-to-upload(type="file" capture="camera")
 
-        div.ui.section.divider
-
-        div(style="display: none")
-          form#form(enctype="multipart/form-data" method="post")
-            input#file-to-upload(type="file" capture="camera")
     .ui.modal#modal-progress
       .header 照片上傳進度
       .content
@@ -134,17 +125,15 @@ html
           .field#anonymous
             .ui.toggle.checkbox
               input(type="checkbox" name="anonymous")
-              label 是否匿名檢舉
+              label 匿名將檢舉顯示於首頁
       .actions
         .ui.button.red.deny 取消
         .ui.button.green.approve 確定
     .ui.modal.small#modal-submit
       .header 檢舉成功
       .content
-        .image
-          i.checkmark.green.large.icon
-        .description
-          .ui.header.large.our-centered 感謝您的檢舉。
+        .description.out-centered
+          .ui.header.large.our-centered 感謝您的檢舉 !
       .actions
         .ui.button.teal.approve 確定
 
