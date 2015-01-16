@@ -75,5 +75,8 @@
 (ex.車內無人、擋在停車場出入口...等等更加詳細的描述)
 
 ### 4.口號
-* Cross platform, no limits.
-* Let's do it easier!
+Face the problem, then solve it.
+違規停車已經成為
+  
+Cross platform, no limits.
+Make everything simple.
