@@ -1,3 +1,4 @@
+photo = ''
 $ document .ready ->
 
   check = cookie.check!
@@ -12,7 +13,7 @@ $ document .ready ->
     document.get-element-by-id \file-to-upload .click!
 
   $ \#file-to-upload .change ->
-    $ \#modal-progress .modal \show
+    $ \#modal-progress .modal \show .modal closable: false
     fd = new Form-data!
     fd.append \photo, document.get-element-by-id(\file-to-upload).files.0
     xhr = new XML-http-request!
@@ -29,9 +30,9 @@ $ document .ready ->
   $ \#progress .progress percent: percent
 
 !function upload-complete
-  img = it.current-target.response
+  photo := it.current-target.response
   set-timeout !->
-    modal-photo img
+    modal-photo photo
     $ \#progress .progress percent: 0
     $ '#progress .label' .text "0 %"
   , 1000
@@ -50,6 +51,7 @@ $ document .ready ->
     .css \height, (window.inner-height*0.6)+'px'
   $ \#modal-photo
     .modal do
+      closable: false
       on-approve: modal-form
       on-deny: cancel-all-form
     .modal \show
@@ -57,30 +59,42 @@ $ document .ready ->
 !function modal-form
   $ \#modal-photo
     .modal \hide
-  $ \#theme .dropdown!
-  $ \#region .dropdown!
-  $ \#checkbox .checkbox!
   $ \#modal-form
     .modal do
-      on-approve: modal-verify
+      closable: false
+      on-approve: modal-form-send
       on-deny: cancel-all-form
     .modal \show
 
-!function modal-verify
-  $ \#modal-form
-    .modal \hide
-  $ \#modal-verify
-    .modal do
-      on-approve: modal-submit
-      on-deny: cancel-all-form
-    .modal \show
+!function modal-form-send
+  region = parseInt($ '[name=region]' .val!)
+  theme = parseInt($ '[name=theme]' .val!)
+  content = $ '#content textarea' .val!
+  anonymous = $ '[name=anonymous]' .prop \checked
+  if region is '' then set-timeout modal-form, 10
+  else if theme is '' then set-timeout modal-form, 10
+  else if content is '' then set-timeout modal-form, 10
+  else
+    if anonymous then anonymous = 1 else anonymous = 0
+    data = do
+      region: region
+      theme: theme
+      content: content
+      anonymous: anonymous
+      cookie: cookie.get!
+      photo: photo
+    $.ajax do
+      url: \php/add-report.php
+      type: \POST
+      data: data
+      success: modal-submit
 
 !function modal-submit
-  $ \#modal-verify
-    .modal \hide
   $ \#modal-submit
     .modal do
-      on-approve: cancel-all-form
+      closable: false
+      on-approve: ->
+        location.href = location.href
     .modal \show
 
 !function cancel-all-form
