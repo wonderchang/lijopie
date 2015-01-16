@@ -9,3 +9,7 @@ Step 3: $ npm start
 
 ## Form detail
 
+## Haha
+
+1.Cross platform, no limits.
+2.Let's do it easier!
