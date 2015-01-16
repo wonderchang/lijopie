@@ -15,15 +15,17 @@ if($num === 1) {
   $row = mysql_fetch_assoc($result);
   $user_id = $row['id'];
   $photo = "uploads/$photo";
+  $expect = date('Y-m-d', time() + 20 * 86400);
   $result = mysql_query("INSERT INTO report SET
     user_id=$user_id,
     region_id=$region_id,
     theme_id=$theme_id,
     content='$content',
-    progress_id=1,
+    progress_id=0,
     picture='$photo',
     anonymous=$anonymous,
-    createtime=now()
+    expect='$expect',
+    reporttime=now()
     ");  
   if($result) { echo 1; }
   else { echo 0; }
