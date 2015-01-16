@@ -1,0 +1,53 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    title 台南市違規停車檢舉平台
+    link(rel='stylesheet' href='app.css')
+  body
+    .wrapper
+      .ui.menu.fixed.inverted#header
+        a.item(href='./')#title_logo
+          img(src="res/title_logo.png")
+        .right.menu
+          a.item(href='about.html') 關於
+          a.item(href='contact.html') 聯絡我們
+      .ui.page.grid.cover
+        .column
+          .ui.segment.form
+            h1.ui.dividing.header 註冊
+            .ui.error.message
+              .header 
+            .field.name
+              label 姓名
+              input(type='text' placeholder='姓名')
+            .field.gender
+              label 性別
+              .ui.selection.dropdown
+                .default.text 性別
+                i.dropdown.icon
+                input(type="hidden" name="gender")
+                .menu
+                  .item(data-value="0") 女
+                  .item(data-value="1") 男
+                  .item(data-value="2") 其他
+            .field.email
+              label 電子信箱
+              input(type='email' placeholder='電子信箱')
+            .field.username
+              label 帳號
+              input(type='text' placeholder='帳號')
+            .field.password
+              label 密碼
+              input(type='password' placeholder='密碼')
+            .field.verify
+              label 重新輸入密碼
+              input(type='password' placeholder='重新輸入密碼')
+            a.ui.button.red(href="./login.html") 回登入
+            button.ui.button.teal#signup-btn 註冊
+
+    script(src="app.js")
+    script(src="signup.js")
+
+//- vi:et:nowrap:sw=2:ts=2 
