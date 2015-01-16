@@ -32,6 +32,7 @@ $ document .ready ->
   !function show-login
     $ \#signup
       .modal \hide
+    $ \#gender
     $ \#login
       .modal do
         on-approve: !-> console.log \logining
@@ -46,7 +47,7 @@ $ document .ready ->
         on-approve: !-> console.log \signuping
         on-deny: !-> show-login!
       .modal \show
-    $ \#gender .dropdown!
+
 
 
   /*
