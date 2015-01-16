@@ -1,6 +1,7 @@
 $ document .ready ->
 
   resize.cover!
+  $ \.dropdown .dropdown!
 
   $ \#signup-btn .click ->
     data = do
@@ -29,11 +30,10 @@ $ document .ready ->
       type: \POST
       data: data
       before-send: ->
-        $ '.form' .add-class \loading
+        error ''; $ '.form' .add-class \loading
       success: ->
         it = parseInt it
         if it is 1
-          error ''
           $ \.dimmer .dimmer \show
             .dimmer on-hide: ->
               location.href = path.dirname!+\login.html

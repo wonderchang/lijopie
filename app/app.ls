@@ -1,18 +1,24 @@
-$ \.dropdown .dropdown!
 
 resize = do
   cover: !->
     h = window.innerHeight
     w = window.innerWidth
-    cover-h = (($ '.cover .column' .css \height) / 'px').0
-    header-h = (($ \#header .css \height) / 'px').0
-    cover-pt = (($ '.cover .column' .css \padding-top) / 'px').0
-    cover-pb = (($ '.cover .column' .css \padding-bottom) / 'px').0
-    cover-mt = (($ '.cover .column' .css \margin-top) / 'px').0
-    cover-mb = (($ '.cover .column' .css \margin-bottom) / 'px').0
-    padding-shift = (h - cover-h - cover-mt - cover-mb) / 2
+    cover-h = this.height '.cover .column'
+    cover-mv = this.v-margin '.cover .column'
+    header-h = this.height \#header
+    padding-shift = (h - cover-h - cover-mv) / 2
     $ '.cover .column' .css \padding-top, padding-shift+\px
     $ '.cover .column' .css \padding-bottom, padding-shift+\px
+  height: -> parseInt (($ it .css \height) / 'px').0
+  v-padding: ->
+    top = parseInt (($ it .css \padding-top) / 'px').0
+    bot = parseInt (($ it .css \padding-bottom) / 'px').0
+    top+bot
+  v-margin: ->
+    top = parseInt (($ it .css \margin-top) / 'px').0
+    bot = parseInt (($ it .css \margin-bottom) / 'px').0
+    top+bot
+
 
 cookie = do
   cn: \triplebaby

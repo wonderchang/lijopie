@@ -1,26 +1,39 @@
 $ document .ready ->
 
-  # resize
   resize.cover!
 
-  # Login and signup
+  $ \#login-btn .click ->
+    data = do
+      username: $ '.form .username input' .val!
+      password: $ '.form .password input' .val!
 
-!function show-login
-  if it isnt undefined
-    $ '#login .message .header' .text it.header
-    $ '#login .message .content' .text it.content
-    $ '#login .form' .add-class \error
+    # 1. not null
+    error-count = 0
+    for key in Object.keys data
+      if data[key] is '' then error-count++
+    if error-count is 0 then error ''
+    else error \請確認以下資料皆不為空值; return
+
+    $.ajax do
+      url: \php/login.php
+      type: \POST
+      data: data
+      before-send: ->
+        error ''; $ '.form' .add-class \loading
+      success: ->
+        if it.length == 32
+          cookie.set it
+          location.href = path.dirname!+\report.html
+        else if parseInt(it) is 0
+          $ '.form' .remove-class \loading
+          error \帳號密碼錯誤
+        else
+          location.href = path.dirname!+\error.html
+
+function error header
+  if header isnt ''
+    $ '.form .message .header' .text header
+    $ \.form .add-class \error
   else
-    $ '#login .message .header' .text ''
-    $ '#login .message .content' .text ''
-    $ '#login .form' .remove-class \error
-
-!function logining
-  console.log \wefwef
-  data = do
-    username: $ '#login .username input' .val!
-    password: $ '#login .password input' .val!
-  if data.username is '' or data.password is ''
-    console.log \wfe
-    show-login header: '錯誤', content: '請輸入帳號密碼'
-
+    $ '.form .message .header' .text header
+    $ \.form .remove-class \error

@@ -1,5 +1,8 @@
 <?php
 
-echo 1;
+require_once('./db-config.php');
+require_once('./util.php');
+
+
 
 ?>
