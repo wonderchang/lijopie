@@ -23,6 +23,9 @@ $ document .ready ->
 
 function append-latest-report
   img = $ "<div>" .add-class \report-img
+    .css \overflow, \hidden
+    .css \width, \100%
+    .css \height, \130px
     .append (
       $ "<img>" .attr \src, it.img
         .css \width, \100%
