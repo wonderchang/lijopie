@@ -12,11 +12,11 @@ $ document .ready ->
       success: ->
         it = 0
         if it is 0
-          location.href = "#{location.href}/login.html"
+          location.href = "#{location.href}login.html"
         else if it is 1
-          location.href = "#{location.href}/report.html"
+          location.href = "#{location.href}report.html"
         else
-          location.href = "#{location.href}/error.html"
+          location.href = "#{location.href}error.html"
 
 /*
 for i to 7

@@ -21,27 +21,33 @@ $ document .ready ->
     # 2. password = verify
     if data.password isnt data.verify
       error \重新輸入密碼錯誤; return
-    else error ''; console.log \ok
+    else error ''
 
     # Ajax
     $.ajax do
-      url: \./php/add-user.php
+      url: \php/add-user.php
       type: \POST
       data: data
       before-send: ->
         $ '.form' .add-class \loading
       success: ->
-        it = 1
+        it = parseInt it
         if it is 1
-          location.href = (location.href / \signup.html).0+\login.html
+          error ''
+          $ \.dimmer .dimmer \show
+            .dimmer on-hide: ->
+              location.href = path.dirname!+\login.html
         else if it is 2 # repeat email
           $ '.form' .remove-class \loading
           error \此信箱已註冊過
         else if it is 3 # repeat username
           $ '.form' .remove-class \loading
           error \此帳號已註冊過
+        else if it is 4 # repeat email & username
+          $ '.form' .remove-class \loading
+          error \此信箱與帳號皆已註冊過
         else
-          location.href = (location.href / \signup.html).0+\error.html
+          location.href = path.dirname!+\error.html
 
 function error header
   if header isnt ''

@@ -30,3 +30,9 @@ cookie = do
     d.set-time d.get-time!+24*60*60*1000
     expires = 'expires='+d.to-GMT-string!
     document.cookie = this.cn+'='+it+';'+expires
+
+path = do
+  dirname: ->
+    arr = location.href.split '/'
+    (location.href.split arr[arr.length - 1]).0
+
