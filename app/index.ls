@@ -5,13 +5,10 @@ $ document .ready ->
 
   # Login and signup
   $ \#report-btn .click ->
-    flag = cookie.check!
-    if flag is 0
-      location.href = "#{location.href}login.html"
-    else if check is 1
-      location.href = "#{location.href}report.html"
-    else
-      location.href = "#{location.href}error.html"
+    switch cookie.check!
+    | 0         => location.href = "#{location.href}login.html"
+    | 1         => location.href = "#{location.href}report.html"
+    | otherwise => location.href = "#{location.href}error.html"
 
 /*
 for i to 7

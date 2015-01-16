@@ -1,17 +1,27 @@
-$ \#start-report .click ->
-  document.get-element-by-id \file-to-upload .click!
+$ document .ready ->
 
-$ \#file-to-upload .change ->
-  $ \#modal-progress .modal \show
-  fd = new Form-data!
-  fd.append \photo, document.get-element-by-id(\file-to-upload).files.0
-  xhr = new XML-http-request!
-  xhr.upload.add-event-listener \progress, upload-progress, false
-  xhr.add-event-listener \load, upload-complete, false
-  xhr.add-event-listener \error, upload-failed, false
-  xhr.add-event-listener \abort, upload-canceled, false
-  xhr.open \POST, \php/upload.php
-  xhr.send fd
+  check = cookie.check!
+  if check is 0 then location.href = "#{path.dirname!}login.html"
+  else if check is 2 then location.href = "#{path.dirname!}error.html"
+
+  $ \#logout .click ->
+    cookie.set ''
+    location.href = path.dirname!
+
+  $ \#start-report .click ->
+    document.get-element-by-id \file-to-upload .click!
+
+  $ \#file-to-upload .change ->
+    $ \#modal-progress .modal \show
+    fd = new Form-data!
+    fd.append \photo, document.get-element-by-id(\file-to-upload).files.0
+    xhr = new XML-http-request!
+    xhr.upload.add-event-listener \progress, upload-progress, false
+    xhr.add-event-listener \load, upload-complete, false
+    xhr.add-event-listener \error, upload-failed, false
+    xhr.add-event-listener \abort, upload-canceled, false
+    xhr.open \POST, \php/upload.php
+    xhr.send fd
 
 !function upload-progress
   percent = Math.round it.loaded * 100 / it.total

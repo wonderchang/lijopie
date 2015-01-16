@@ -45,8 +45,7 @@ cookie = do
       type: \POST
       data: cookie: this.get!
       async: false
-      success: ->
-        flag := parseInt it
+      success: -> flag := parseInt it
     flag
 
 path = do

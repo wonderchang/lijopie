@@ -1,5 +1,8 @@
 $ document .ready ->
 
+  check = cookie.check!
+  if check is 1 then location.href = "#{path.dirname!}report.html"
+  else if check is 2 then location.href = "#{path.dirname!}error.html"
   resize.cover!
 
   $ \#login-btn .click ->
