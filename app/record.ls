@@ -18,9 +18,10 @@ $ document .ready ->
         i.progress_id = parseInt i.progress_id
         tr = d3.select \tbody .append \tr
         tr.append \td
+          .classed 'four wide', true
           .append \img
           .attr \src, i.picture
-          .attr \width, 150
+          .style \width, \100%
         tr.append \td
           .text i.reporttime
         tr.append \td

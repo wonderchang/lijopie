@@ -10,18 +10,23 @@ $ document .ready ->
     | 1         => location.href = "#{location.href}report.html"
     | otherwise => location.href = "#{location.href}error.html"
 
-/*
-for i to 7
-  append-latest-report {
-    img: \res/demo1.jpg
-    time: "2015/01/01 12:00:00"
-    region: \東區
-    type: \紅線違規停車
-  }
+  $.ajax do
+    url: \php/get-anonymous.php
+    success: ->
+      it = JSON.parse it
+      for i in it
+        append-latest-report do
+          img: i.picture
+          time: i.reporttime
+          region: i.region_name
+          type: i.theme_name
 
 function append-latest-report
   img = $ "<div>" .add-class \report-img
-    .append ($ "<img>" .attr \src, it.img)
+    .append (
+      $ "<img>" .attr \src, it.img
+        .css \width, \100%
+    )
   time = $ "<div>" .add-class \ui
     .add-class \header
     .add-class \tiny
@@ -44,4 +49,3 @@ function append-latest-report
     .append region
     .append type
     .append-to column
-*/

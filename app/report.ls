@@ -71,33 +71,35 @@ $ document .ready ->
   theme = parseInt($ '[name=theme]' .val!)
   content = $ '#content textarea' .val!
   anonymous = $ '[name=anonymous]' .prop \checked
+  /*
   if region is '' then set-timeout modal-form, 10
   else if theme is '' then set-timeout modal-form, 10
   else if content is '' then set-timeout modal-form, 10
   else
-    if anonymous then anonymous = 1 else anonymous = 0
-    data = do
-      region: region
-      theme: theme
-      content: content
-      anonymous: anonymous
-      cookie: cookie.get!
-      photo: photo
-    $.ajax do
-      url: \php/add-report.php
-      type: \POST
-      data: data
-      success: modal-submit
+  */
+  if anonymous then anonymous = 1 else anonymous = 0
+  data = do
+    region: region
+    theme: theme
+    content: content
+    anonymous: anonymous
+    cookie: cookie.get!
+    photo: photo
+  $.ajax do
+    url: \php/add-report.php
+    type: \POST
+    data: data
+    success: modal-submit
 
 !function modal-submit
   $ \#modal-submit
     .modal do
       closable: false
       on-approve: ->
-        location.href = location.href
+        location.href = path.dirname!+\record.html
     .modal \show
 
 !function cancel-all-form
-  console.log \wefe
+  location.href = path.dirname!
 
 # vi:ei:ft=ls:nowrap:sw=2:ts=2
