@@ -19,5 +19,3 @@
 Face the problem, then solve it.
 違規停車已經成為
   
-Cross platform, no limits.
-Make everything simple.
