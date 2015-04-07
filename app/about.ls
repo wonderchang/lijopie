@@ -1,7 +1,7 @@
 resize.cover! 
 
 $ \#pic1 .mouseover ->
-  $ this .transition \tado
+  $ this .transition \tada
 $ \#pic2 .mouseover ->
   $ this .transition \pulse
 $ \#pic3 .mouseover ->
