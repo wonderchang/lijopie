@@ -8,14 +8,10 @@
 * $ mkdir public/uploads
 * $ vim app/php/db-info.php
 
-    <?php
-      $host = ''
-      $user = ''
-      $name = ''
-      $pass = ''
-    ?>
+      <?php
+        $host = ''
+        $user = ''
+        $name = ''
+        $pass = ''
+      ?>
 
-### Slogon
-Face the problem, then solve it.
-違規停車已經成為
-  
