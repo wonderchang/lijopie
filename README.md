@@ -1,4 +1,4 @@
-# triplebaby (台南市違規停車檢舉平台)
+# lijopie
 
 ## Build
 
@@ -8,10 +8,10 @@
 * $ mkdir public/uploads
 * $ vim app/php/db-info.php
 
-      <?php
-        $host = ''
-        $user = ''
-        $name = ''
-        $pass = ''
-      ?>
+        <?php
+          $host = ''
+          $user = ''
+          $name = ''
+          $pass = ''
+        ?>
 

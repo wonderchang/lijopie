@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "author": "Wonder Chang <iwonder.tw@gmail.com",
   "devDependencies": {
-    "bower": "~1.2.7",
+    "bower": "~1.4.1",
     "connect-livereload": "~0.3.2",
     "express": "~3.4.8",
     "gulp": "~3.5.5",
