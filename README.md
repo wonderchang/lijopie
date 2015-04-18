@@ -2,11 +2,16 @@
 
 ## Build
 
-* $ npm i
-* $ bower i
-* $ npm start
-* $ mkdir public/uploads
-* $ vim app/php/db-info.php
+* Follow instructions below
+
+        $ npm i
+        $ bower i
+        $ npm start
+        $ mkdir public/uploads
+
+* Add the database configuration
+        
+        $ vim app/php/db-info.php
 
         <?php
           $host = ''
