@@ -23,6 +23,7 @@
 
         $ mkdir public/uploads && chmod 777 public/uploads
         $ npm i && run-script build
+        $ sudo apt-get install imagemagick
 
 * Soft link the `public/` in your server directory, link the directory
 
