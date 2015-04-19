@@ -3,7 +3,7 @@ $ \.checkbox .checkbox!
 
 resize = do
   cover: !->
-    h = window.innerHeight
+    h = window.innerHeight+5
     w = window.innerWidth
     cover-h = this.height '.cover .column'
     cover-mv = this.v-margin '.cover .column'
