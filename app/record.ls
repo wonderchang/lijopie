@@ -26,10 +26,11 @@ $ document .ready ->
           .text i.reporttime
         tr.append \td
           .html ->
+            if i.notes then notes = "(#{i.notes})" else notes = ''
             switch i.progress_id
-            | 0 => "<i class='icon question'></i> 處理中"
-            | 1 => "<i class='icon checkmark'></i> 檢舉成功"
-            | 2 => "<i class='icon close'></i> 檢舉失敗"
+            | 0 => "<i class='icon question'></i> 處理中"+notes
+            | 1 => "<i class='icon checkmark'></i> 檢舉成功"+notes
+            | 2 => "<i class='icon close'></i> 檢舉失敗"+notes
           .classed \warning, -> i.progress_id is 0
           .classed \positive, -> i.progress_id is 1
           .classed \negative, -> i.progress_id is 2

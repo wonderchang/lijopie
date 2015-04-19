@@ -60,6 +60,7 @@ CREATE TABLE `report` (
   `expect` datetime DEFAULT NULL,
   `reporttime` timestamp NULL DEFAULT NULL,
   `active` int(1) DEFAULT '1',
+  `notes` varchar(256) DEFAULT NULL,
   PRIMARY KEY (`report_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
