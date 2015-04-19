@@ -22,14 +22,19 @@ $ document .ready ->
           type: i.theme_name
 
 function append-latest-report
+  src = it
   img = $ "<div>" .add-class \report-img
     .css \overflow, \hidden
     .css \width, \100%
     .css \height, \130px
+    .css \cursor, \pointer
     .append (
-      $ "<img>" .attr \src, it.img
+      $ "<img>" .attr \src, src.img
         .css \width, \100%
     )
+    .on \click, !->
+      $ '#detail .content' .html "<img src='#{src.img}' style='width: 100%'>"
+      $ \#detail .modal \show
   time = $ "<div>" .add-class \ui
     .add-class \header
     .add-class \tiny
