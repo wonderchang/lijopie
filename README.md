@@ -25,3 +25,7 @@
         $ npm i && run-script build
 
 * Soft link the `public/` in your server directory, link the directory
+
+## License
+
+MIT
