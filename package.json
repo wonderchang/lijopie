@@ -1,7 +1,10 @@
 {
-  "name": "triplebaby",
+  "name": "lijopie",
   "version": "0.0.1",
   "author": "Wonder Chang <iwonder.tw@gmail.com",
+  "dependencies": {
+    "phantom": "^0.7.2"
+  },
   "devDependencies": {
     "bower": "~1.4.1",
     "connect-livereload": "~0.3.2",
