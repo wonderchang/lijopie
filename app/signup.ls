@@ -1,60 +1,73 @@
+if 1 is cookie.check! then location.href = "#{path.dirname!}report.html"
+
 $ document .ready ->
 
-  check = cookie.check!
-  if check is 1 then location.href = "#{path.dirname!}report.html"
-  else if check is 2 then location.href = "#{path.dirname!}error.html"
-  resize.cover!
+  $ \.dropdown .dropdown!
 
-  $ \#signup-btn .click ->
+  $ \button .click ->
     data = do
-      name: $ '.form .name input' .val!
-      gender: $ '.form .gender input' .val!
-      email: $ '.form .email input' .val!
+      name:     $ '.form .name input' .val!
+      gender:   $ '.form .gender input' .val!
+      email:    $ '.form .email input' .val!
       username: $ '.form .username input' .val!
       password: $ '.form .password input' .val!
-      verify: $ '.form .verify input' .val!
+      verify:   $ '.form .verify input' .val!
 
-    # 1. not null
-    error-count = 0
-    for key in Object.keys data
-      if data[key] is '' then error-count++
-    if error-count is 0 then error ''
-    else error \請確認以下資料皆不為空值; return
+    check-null = true
+    if data.name     is '' then $ '.form .name'     .add-class \error; check-null = false else $ '.form .name'     .remove-class \error
+    if data.gender   is '' then $ '.form .gender'   .add-class \error; check-null = false else $ '.form .gender'   .remove-class \error
+    if data.email    is '' then $ '.form .email'    .add-class \error; check-null = false else $ '.form .email'    .remove-class \error
+    if data.username is '' then $ '.form .username' .add-class \error; check-null = false else $ '.form .username' .remove-class \error
+    if data.password is '' then $ '.form .password' .add-class \error; check-null = false else $ '.form .password' .remove-class \error
+    if data.verify   is '' then $ '.form .verify'   .add-class \error; check-null = false else $ '.form .verify'   .remove-class \error
+    if !check-null
+      $ '.form .message .header' .text \以上欄位皆務必填寫
+      $ \.form .add-class \error
+      return
+    else
+      $ \.form .remove-class \error
+      $ '.form .message .header' .text ''
 
-    # 2. password = verify
     if data.password isnt data.verify
-      error \重新輸入密碼錯誤; return
-    else error ''
+      $ '.form .message .header' .text \密碼確認錯誤
+      $ \.form .add-class \error
+      $ '.form .verify' .add-class \error
+      return
+    else
+      $ \.form .remove-class \error
+      $ '.form .message .header' .text ''
+      $ '.form .verify' .remove-class \error
 
-    # Ajax
     $.ajax do
-      url: \php/add-user.php
-      type: \POST
-      data: data
+      url: \php/add-user.php, type: \POST, data: data
       before-send: ->
-        error ''; $ '.form' .add-class \loading
+        $ \.form .remove-class \error
+        $ '.form .message .header' .text ''
+        $ '.form' .add-class \loading
       success: ->
-        it = parseInt it
-        if it is 1
+        switch parseInt it
+        | 1 => # signup successfully
+          $ '.form .email' .remove-class \error
+          $ '.form .username' .remove-class \error
           $ \.dimmer .dimmer \show
             .dimmer on-hide: ->
               location.href = path.dirname!+\login.html
-        else if it is 2 # repeat email
+        | 2 => # repeat email
           $ '.form' .remove-class \loading
-          error \此信箱已註冊過
-        else if it is 3 # repeat username
+          $ '.form .message .header' .text \此信箱已註冊過
+          $ \.form .add-class \error
+          $ '.form .email' .add-class \error
+        | 3 => # repeat username
           $ '.form' .remove-class \loading
-          error \此帳號已註冊過
-        else if it is 4 # repeat email & username
+          $ '.form .message .header' .text \此帳號已註冊過
+          $ \.form .add-class \error
+          $ '.form .username' .add-class \error
+        | 4 => # repeat email & username
           $ '.form' .remove-class \loading
-          error \此信箱與帳號皆已註冊過
-        else
-          location.href = path.dirname!+\error.html
+          $ '.form .message .header' .text \此信箱與帳號皆已註冊過
+          $ \.form .add-class \error
+          $ '.form .email' .add-class \error
+          $ '.form .username' .add-class \error
+        | otherwise =>
+          location.href = path.dirname!
 
-function error header
-  if header isnt ''
-    $ '.form .message .header' .text header
-    $ \.form .add-class \error
-  else
-    $ '.form .message .header' .text header
-    $ \.form .remove-class \error

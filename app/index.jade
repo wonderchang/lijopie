@@ -1,45 +1,71 @@
-doctype html
-html
-  head
-    meta(charset='utf-8')
-    meta(name='viewport' content='width=device-width, initial-scale=1.0')
-    title 台南市違規停車檢舉平台
-    link(rel='stylesheet' href='app.css')
-    link(rel='stylesheet' href='index.css')
-    link(rel="shortcut icon" href="res/favicon.ico")
-  body
-    .wrapper
-      .ui.menu.fixed.inverted#header
-        a.item(href='./')#title_logo
-          img(src="res/title_logo.png")
-          |  哩足歹！立就拍！
-        .right.menu
-          a.item(href='about.html') 關於
-          a.item(href='contact.html') 聯絡我們
-        
-      .ui.page.center.aligned.grid.cover
-        .column
-          #title 台南市違規停車檢舉平台 
-          #sub-title-1 哩足歹! 立就拍!
-          #sub-title-2 Report illegal parking right away!
-          button.ui.button.teal.massive#report-btn 我要檢舉! GO!
-      
-      .ui.page.center.aligned.grid#video
-        .column
-          h1.ui.header#video-title 你有違規停車嗎？
-          iframe(style="height: 60vh" src="https://www.youtube.com/embed/n_d8pyMIeIo" frameborder="0" allowfullscreen)
-          h1.ui.header#video-title 改變社會，由你我做起
+extends main.jade
 
-      .ui.page.center.aligned.grid#latest-report
-        h1.ui.header.massive 最新檢舉
-        .doubling.four.column.row#latest-report-content
+block main
+  .wrapper.pusher
 
-      .ui.small.modal#detail
-        i.close.icon
-        .header 檢舉細節
-        .content
+    .container.our-centered.img-bg#cover
+      .vh5 台南市違規停車檢舉平台 
+      .vh10 哩足歹! 立就拍!
+      .vh4 Report illegal parking right away!
+      a.ui.button.teal.massive 我要檢舉! GO!
 
-    script(src="app.js")
-    script(src="index.js")
+    .container.our-centered#features
+      .vh6.title-line 第一次拍照檢舉就上手
+      .subcontainer
+        .ui.grid
+          .column
+            .our-centered
+              i.icon.clock.massive.blue
+              .vh4.title-line 時間浮水印
+            .vh3.title-line 檢舉照片需有檢舉時的時間浮水印，警察才會接受審件，還在煩惱下載什麼 App 才有照片時間浮水印的功能呢？「立就拍」將貼心的幫你加上。
+          .column
+            .our-centered
+              i.icon.send.massive.green
+              .vh4.title-line 自動送件警察局
+              .vh3.title-line
+            .vh3.title-line 「立就拍」是一位您與警察局之間的檢舉中介者，將代表您的身份，為您的檢舉資料送至台南市警察局的檢舉系統內，簡單有方便。
+          .column
+            .our-centered
+              i.icon.tasks.massive.pink
+              .vh4.title-line 追蹤檢舉進度
+            .vh3.title-line 「立就拍」是一位您與警察局之間的檢舉中介者，將代表您的身份，為您的檢舉資料送至台南市警察局的檢舉系統內，簡單有方便。
+
+    .container.our-centered.img-bg#video
+      .vh6.title-line 你有違規停車嗎？
+      iframe(src="https://www.youtube.com/embed/n_d8pyMIeIo" frameborder="0" allowfullscreen)
+      .vh6.title-line 改變社會，由你我做起
+
+    .container.our-centered#hints
+      .vh6.title-line 拍照舉發 2 秘訣
+      .subcontainer
+        .ui.grid
+          .column.our-centered
+            .ui.segment
+              img.sample-img(src="res/car_head.jpg")
+            .our-centered
+              .ui.red.tag.label.massive 角度是關鍵
+            .our-centered.vh4.title-line
+              | 「車牌」、「完整車身」、「車內無人」一覽無遺
+          .column
+            .ui.segment
+              img.sample-img(src="res/evidence_obvious1.jpg")
+            .our-centered
+              .ui.blue.tag.label.massive 證據要明顯 
+            .our-centered.vh4.title-line
+              | 「違規證據」請楚呈現！光線不足善用閃光燈
+            
+    .container.our-centered.img-bg#report
+      .vh6.title-line 最新檢舉
+      .subcontainer
+        .ui.grid
+
+    .ui.small.modal#detail
+      i.close.icon
+      .header 檢舉細節
+      .content
+
+block vars
+  - var js = 'index'
+  - var css = 'index'
 
 //- vi:et:nowrap:sw=2:ts=2 

@@ -1,7 +1,6 @@
 # lijopie
 
 Illegal parking reporting platform for tainan city
-
 [hackpad](https://g0v.hackpad.com/--TP0maM6gaZx)
 
 ## Build

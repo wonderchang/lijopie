@@ -1,143 +1,19 @@
-doctype html
-html
-  head
-    meta(charset='utf-8')
-    meta(name='viewport' content='width=device-width, initial-scale=1.0')
-    title 台南市違規停車檢舉平台
-    link(rel="shortcut icon" href="res/favicon.ico")
-    link(rel='stylesheet' href='app.css')
-    link(rel='stylesheet' href='report.css')
-  body
-    .wrapper
-      .ui.menu.fixed.inverted#header
-        a.item(href='./')#title_logo
-          img(src="res/title_logo.png")
-        .right.menu
-          a.item#start-report 開始檢舉
-          a.item(href="record.html") 我的檢舉
-          a.item#logout 登出
-      .ui.page.center.aligned.grid#container
-        h1.ui.header#title(style="font-size: 8vh") 拍照舉發 2 秘訣
-        .ui.red.tag.label.our-tag(style="font-size: 4vh") 角度是關鍵
-        .three.column.centered.row
-          .column
-            img(src="res/car_head.jpg")
-          .column
-            img(src="res/moto.jpg") 
-        h3.ui.header 記得「汽車拍車頭,機車拍車尾」！最好整台車都拍進去！
+extends main.jade
 
-        div.ui.section.divider
+block main
+  .wrapper.pusher
 
-        .ui.blue.tag.label.our-tag(style="font-size: 4vh") 證據要明顯 
-        .three.column.centered.row
-          .column
-            img(src="res/evidence_obvious1.jpg")
-          .column
-            img(src="res/evidence_obvious2.jpg") 
-        h3.ui.header 注意要清楚拍到紅線、黃線等違規證據！車牌也要清晰易辨識！若在夜間、燈光昏暗的地方，要記得打開閃光燈！
+    .container.our-centered#report
+      .vh6.title-line.our-centered 檢舉紀錄
+      .subcontainer
+        .ui.grid
 
-        div.ui.section.divider
-
-    div(style="display: none")
-      form#form(enctype="multipart/form-data" method="post")
-        input#file-to-upload(type="file" capture="camera")
-
-    .ui.modal#modal-progress
-      .header 照片上傳進度
+    .ui.small.modal#detail
+      i.close.icon
+      .header 檢舉細節
       .content
-        .ui.progress.teal#progress
-          .bar
-          .label 0 %
-    .ui.modal#modal-photo
-      .header 檢舉相片確認
-      .content
-        .ui.median.image
-          img#upload-photo(src='')
-      .actions
-        .ui.button.red.deny 取消
-        .ui.button.green.approve 確定
-    .ui.modal#modal-form
-      .header 檢舉內容
-      .content#region
-        .ui.form
-          .field
-            label 違規所在行政區
-            select(name="region").ui.search.dropdown
-              option(value="") 違規現場所在行政區
-              option(value="1") 東區
-              option(value="2") 北區
-              option(value="3") 南區
-              option(value="4") 中西區
-              option(value="5") 安南區
-              option(value="6") 安平區
-              option(value="7") 七股區
-              option(value="8") 下營區
-              option(value="9") 仁德區
-              option(value="10") 佳里區
-              option(value="11") 六甲區
-              option(value="12") 北門區
-              option(value="13") 南化區
-              option(value="14") 善化區
-              option(value="15") 大內區
-              option(value="16") 學甲區
-              option(value="17") 安定區
-              option(value="18") 官田區
-              option(value="19") 將軍區
-              option(value="20") 山上區
-              option(value="21") 左鎮區
-              option(value="22") 後壁區
-              option(value="23") 新化區
-              option(value="24") 新市區
-              option(value="25") 新營區
-              option(value="26") 東山區
-              option(value="27") 柳營區
-              option(value="28") 楠西區
-              option(value="29") 歸仁區
-              option(value="30") 永康區
-              option(value="31") 玉井區 
-              option(value="32") 白河區
-              option(value="33") 西港區
-              option(value="34") 關廟區
-              option(value="35") 鹽水區
-              option(value="36") 麻豆區
-              option(value="37") 龍崎區
-          .field#theme
-            label 違規內容
-            .ui.selection.dropdown
-              .default.text 請選擇違規內容
-              i.dropdown.icon 
-              input(type="hidden" name="theme")
-              .menu
-                .item(data-value="1") 紅線停車
-                .item(data-value="2") 黃線停車
-                .item(data-value="3") 公車站牌10公尺內停車
-                .item(data-value="4") 交叉路口10公尺內停車
-                .item(data-value="5") 行人穿越道10公尺內停車
-                .item(data-value="6") 黃線併排
-                .item(data-value="7") 紅線併排
-                .item(data-value="8") 消防栓前停車
-                .item(data-value="9") 彎道停車
-                .item(data-value="10") 人行道停車
-                .item(data-value="11") 停在殘障車位
-          .field#content
-            label 違規內容補充(ex.車內無人、明確地址...等更加詳細的描述)
-            textarea
-          .field#anonymous
-            .ui.toggle.checkbox
-              input(type="checkbox" name="anonymous")
-              label 匿名將檢舉顯示於首頁
-      .actions
-        .ui.button.red.deny 取消
-        .ui.button.green.approve 確定
-    .ui.modal.small#modal-submit
-      .header 檢舉成功
-      .content
-        .description.out-centered
-          .ui.header.large.our-centered 感謝您的檢舉 !
-      .actions
-        .ui.button.teal.approve 確定
 
-    script(src="app.js")
-    script(src="report.js")
+block vars
+  - var js = 'report'
 
 //- vi:et:nowrap:sw=2:ts=2        
