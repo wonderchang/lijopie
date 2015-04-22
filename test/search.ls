@@ -1,10 +1,13 @@
 Imap = require \imap
 qp = require \quoted-printable
+fs = require \fs
 utf8 = require \utf8
 
+config = JSON.parse fs.read-file-sync \config.json, \utf8
+
 imap = new Imap do
-  user: \lijopie.tw@gmail.com
-  password: 'ji394vm,3vm,3'
+  user: config.user
+  password: config.pass
   host: \imap.gmail.com
   port: 993
   tls: true
