@@ -3,7 +3,10 @@
   "version": "0.0.1",
   "author": "Wonder Chang <iwonder.tw@gmail.com",
   "dependencies": {
-    "phantom": "^0.7.2"
+    "phantom": "^0.7.2",
+    "imap": "^0.8.14",
+    "quoted-printable": "^1.0.0",
+    "utf8": "^2.1.0"
   },
   "devDependencies": {
     "bower": "~1.4.1",
