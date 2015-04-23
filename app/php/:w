@@ -151,14 +151,9 @@ html
         .ui.button.red.deny 取消
         .ui.button.green.approve 確定
 
-    .ui.modal.basic#loading
-      .ui.text.loader Loading
-
     .ui.modal.basic#result
       .content
-        .description.our-centered
-          i.icon.massive
-          h1.ui.header
+        .ui.text.loader Loading
 
     script(src='app.js')
     if js

@@ -111,9 +111,11 @@ $ \#file-to-upload .change !->
         closable: false
         duration: duration
         on-approve: send-report
+        on-visible: !->
+          $ '#region .dropdown' .dropdown \show
+          $ '#subject .dropdown' .dropdown!
+          $ \.checkbox .checkbox!
       .modal \show
-      $ \.dropdown .dropdown!
-      $ \.checkbox .checkbox!
     , wait
 
   !function send-report
@@ -142,11 +144,21 @@ $ \#file-to-upload .change !->
       data: data
       before-send: !->
         $ \#report-modal .modal \hide .modal duration: duration
+        $ \#loading .modal \show
       success: !->
+        $ \#loading .modal \hide
         switch parseInt it
-        | 0 => set-timeout (!-> show-msg-modal "<h1 class='ui header red  '><i class='icon close    '></i>檢舉失敗</h1>"), wait
-        | 1 => set-timeout (!-> show-msg-modal "<h1 class='ui header green'><i class='icon checkmark'></i>檢舉成功</h1>"), wait
+        | 0 =>
+          $ '#result .icon'   .add-class 'red close' .remove-class 'green checkmark'
+          $ '#result .header' .add-class 'red' .remove-class 'green' .text '檢舉失敗'
+        | 1 =>
+          $ '#result .icon'   .add-class 'green checkmark' .remove-class 'red close'
+          $ '#result .header' .add-class 'green' .remove-class 'close' .text '檢舉成功'
         $ \textarea .val ''
+        set-timeout !-> $ \#result .modal \show .modal on-visiable: !->
+          set-timeout !-> $ \#result .modal \hide
+          , 3000
+        , 800
 
 !function append-report
   src = it
