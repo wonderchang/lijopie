@@ -52,7 +52,7 @@ $ \.start-report .click !->
 
 $ \#file-to-upload .change !->
 
-  $ \#modal-progress .modal \show .modal closable: false
+  $ \#progress-modal .modal \show .modal closable: false
 
   fd = new Form-data!; photo = ''; wait = 800
   file = document.get-element-by-id(\file-to-upload).files.0
@@ -73,7 +73,7 @@ $ \#file-to-upload .change !->
 
   xhr.add-event-listener \load, !->
     photo := it.current-target.response
-    $ \#modal-progress .modal \hide
+    $ \#progress-modal .modal \hide
     $ '#verify-modal .header' .html \照片檢視
     $ '#verify-modal .content' .html "<img src='uploads/#photo' style='width: 100%'>"
     set-timeout !->
