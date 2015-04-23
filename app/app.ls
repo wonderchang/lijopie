@@ -148,7 +148,7 @@ $ \#file-to-upload .change ->
   img = $ "<div>" .add-class \report-img
     .css \overflow, \hidden
     .css \width, \100%
-    .css \height, \130px
+    .css \height, \240px
     .css \cursor, \pointer
     .append (
       $ "<img>" .attr \src, src.img
