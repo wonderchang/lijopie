@@ -6,12 +6,12 @@ $ document .ready ->
 
   $ \button .click ->
     data = do
-      name:     $ '.form .name input' .val!
-      gender:   $ '.form .gender input' .val!
-      email:    $ '.form .email input' .val!
+      name:     $ '.form .name input'     .val!
+      gender:   $ '.form .gender input'   .val!
+      email:    $ '.form .email input'    .val!
       username: $ '.form .username input' .val!
       password: $ '.form .password input' .val!
-      verify:   $ '.form .verify input' .val!
+      verify:   $ '.form .verify input'   .val!
 
     check-null = true
     if data.name     is '' then $ '.form .name'     .add-class \error; check-null = false else $ '.form .name'     .remove-class \error

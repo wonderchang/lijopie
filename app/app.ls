@@ -47,101 +47,102 @@ $ '#sign-out-btn' .click !->
   cookie.set ''
   location.href = path.dirname!
 
-photo = ''
-$ \.start-report .click ->
+$ \.start-report .click !->
   document.get-element-by-id \file-to-upload .click!
 
-$ \#file-to-upload .change ->
+$ \#file-to-upload .change !->
+
   $ \#modal-progress .modal \show .modal closable: false
-  fd = new Form-data!
-  fd.append \photo, document.get-element-by-id(\file-to-upload).files.0
+
+  fd = new Form-data!; photo = ''; wait = 800
+  file = document.get-element-by-id(\file-to-upload).files.0
+  fd.append \photo, file
+
+  if file.type isnt /image\/(jpeg|jpg|png|bmp|gif)/
+    return show-msg-modal '照片格式須為 .png, .jpg, jpeg, bmp'
+  if 5000000 < file.size
+    return show-msg-modal '照片大小須小於 5 MB'
+
   xhr = new XML-http-request!
-  xhr.upload.add-event-listener \progress, upload-progress, false
-  xhr.add-event-listener \load, upload-complete, false
-  xhr.add-event-listener \error, upload-failed, false
-  xhr.add-event-listener \abort, upload-canceled, false
+
+  xhr.upload.add-event-listener \progress, !->
+    percent = Math.round it.loaded * 100 / it.total
+    $ '.progress .label' .text percent+" %"
+    $ \.progress .progress percent: percent
+  , false
+
+  xhr.add-event-listener \load, !->
+    photo := it.current-target.response
+    $ \#modal-progress .modal \hide
+    $ '#verify-modal .header' .html \照片檢視
+    $ '#verify-modal .content' .html "<img src='uploads/#photo' style='width: 100%'>"
+    set-timeout !->
+      $ \#verify-modal .modal do
+        closable: false
+        on-approve: show-report-modal
+      .modal \show
+      $ \#progress .progress percent: 0
+      $ '#progress .label' .text "0 %"
+    , wait
+  , false
+
+  xhr.add-event-listener \error, !->
+    console.log it
+  , false
+
+  xhr.add-event-listener \abort, !->
+    console.log it
+  , false
+
   xhr.open \POST, \php/upload.php
   xhr.send fd
 
-!function upload-progress
-  percent = Math.round it.loaded * 100 / it.total
-  $ '#progress .label' .text percent+" %"
-  $ \#progress .progress percent: percent
+  !function show-msg-modal
+    $ '#msg-modal .content' .html it
+    $ '#msg-modal' .modal \show
 
-!function upload-complete
-  console.log photo := it.current-target.response
-  set-timeout !->
-    modal-photo photo
-    $ \#progress .progress percent: 0
-    $ '#progress .label' .text "0 %"
-  , 1000
+  !function show-report-modal
+    $ \#verify-modal .modal \hide
+    set-timeout !->
+      $ \#report-modal .modal do
+        closable: false
+        on-approve: send-report
+      .modal \show
+      $ \.dropdown .dropdown!
+      $ \.checkbox .checkbox!
+    , wait
 
-!function upload-failed
-  console.log it
-
-!function upload-canceled
-  console.log it
-
-!function modal-photo
-  $ \#modal-progress
-    .modal \hide
-  $ '#upload-photo'
-    .attr \src, "uploads/#{it}"
-    .css \width, \100% #(window.inner-height*0.6)+'px'
-  $ \#modal-photo
-    .modal do
-      closable: false
-      on-approve: modal-form
-      on-deny: cancel-all-form
-    .modal \show
-
-!function modal-form
-  $ \#modal-photo
-    .modal \hide
-  $ \#modal-form
-    .modal do
-      closable: false
-      on-approve: modal-form-send
-      on-deny: cancel-all-form
-    .modal \show
-  $ \.dropdown .dropdown!
-  $ \.checkbox .checkbox!
-
-!function modal-form-send
-  region = parseInt($ '[name=region]' .val!)
-  theme = parseInt($ '[name=theme]' .val!)
-  content = $ '#content textarea' .val!
-  anonymous = $ '[name=anonymous]' .prop \checked
-  /*
-  if region is '' then set-timeout modal-form, 10
-  else if theme is '' then set-timeout modal-form, 10
-  else if content is '' then set-timeout modal-form, 10
-  else
-  */
-  if anonymous then anonymous = 1 else anonymous = 0
-  data = do
-    region: region
-    theme: theme
-    content: content
-    anonymous: anonymous
-    cookie: cookie.get!
-    photo: photo
-  $.ajax do
-    url: \php/add-report.php
-    type: \POST
-    data: data
-    success: modal-submit
-
-!function modal-submit
-  $ \#modal-submit
-    .modal do
-      closable: false
-      on-approve: ->
-        location.href = path.dirname!+\report.html
-    .modal \show
-
-!function cancel-all-form
-  location.href = path.dirname!
+  !function send-report
+    data = do
+      region:    $ '[name=region]'     .val!
+      subject:   $ '[name=subject]'    .val!
+      content:   $ '#content textarea' .val!
+      anonymous: $ '[name=anonymous]'  .prop \checked
+      cookie:    cookie.get!
+      photo:     photo
+    check-null = true
+    if data.region  is '' then check-null = false
+    if data.subject is '' then check-null = false
+    if data.content is '' then check-null = false
+    if !check-null
+      $ '.form .message .header' .text \以上資料皆務必填寫
+      $ \.form .add-class \error
+      show-report-modal!
+      return
+    $ \.form .remove-class \error
+    $ '.form .message .header' .text ''
+    if data.anonymous then data.anonymous = 1 else data.anonymous = 0
+    $.ajax do
+      url: \php/add-report.php
+      type: \POST
+      data: data
+      before-send: !->
+        $ \#report-modal .modal \hide
+      success: !->
+        switch parseInt it
+        | 0 => set-timeout (!-> show-msg-modal "<h1 class='ui header red  '><i class='icon close    '></i>檢舉失敗</h1>"), wait
+        | 1 => set-timeout (!-> show-msg-modal "<h1 class='ui header green'><i class='icon checkmark'></i>檢舉成功</h1>"), wait
+        $ \textarea .val ''
 
 !function append-report
   src = it
@@ -158,7 +159,7 @@ $ \#file-to-upload .change ->
       content = "<img src='#{src.img}' style='width: 100%'>"
       content += "<br><label>時間：#{src.time}</label>"
       content += "<br><label>區域：#{src.region}</label>"
-      content += "<br><label>類型：#{src.type}</label>"
+      content += "<br><label>事項：#{src.subject}</label>"
       content += "<br><label>內容：#{src.content}</label>"
       $ '#detail .content' .html content
       $ \#detail .modal \show
@@ -171,10 +172,10 @@ $ \#file-to-upload .change ->
     .add-class \gray
     .add-class \label
     .text it.region
-  type = $ "<div>" .add-class \ui
+  subject = $ "<div>" .add-class \ui
     .add-class \red
     .add-class \label
-    .text it.type
+    .text it.subject
   column = $ "<div>"
     .add-class \column
     .append-to '#report .grid'
@@ -183,5 +184,5 @@ $ \#file-to-upload .change ->
     .append img
     .append time
     .append region
-    .append type
+    .append subject
     .append-to column

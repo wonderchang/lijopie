@@ -3,7 +3,7 @@ require_once('./db-config.php');
 require_once('./util.php');
 
 $region_id = filter_escape($_POST['region']);
-$theme_id = filter_escape($_POST['theme']);
+$subject_id = filter_escape($_POST['subject']);
 $content = filter_escape($_POST['content']);
 $anonymous = filter_escape($_POST['anonymous']);
 $cookie = filter_escape($_POST['cookie']);
@@ -19,7 +19,7 @@ if($num === 1) {
   $result = mysql_query("INSERT INTO report SET
     user_id=$user_id,
     region_id=$region_id,
-    theme_id=$theme_id,
+    subject_id=$subject_id,
     content='$content',
     progress_id=0,
     picture='$photo',

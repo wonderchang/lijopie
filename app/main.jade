@@ -49,29 +49,34 @@ html
         i.sign.out.icon
         | 登出
     block main
-    div(style="display: none")
-      form#form(enctype="multipart/form-data" method="post")
-        input#file-to-upload(type="file" capture="camera")
 
-    .ui.modal#modal-progress
-      .header 照片上傳進度
-      .content
-        .ui.progress.teal#progress
-          .bar
-          .label 0 %
-    .ui.modal.small#modal-photo
-      .header 檢舉相片確認
-      .content
-        .ui.median.image
-          img#upload-photo(src='')
+    form.none(enctype="multipart/form-data" method="post")
+      input#file-to-upload(type="file")
+
+    .ui.modal.small#msg-modal
+      i.close.icon
+      .header 訊息
+      .ui.header.content.our-centered
+
+    .ui.modal.small#verify-modal
+      .header
+      .content.our-centered
       .actions
         .ui.button.red.deny 取消
         .ui.button.green.approve 確定
-    .ui.modal#modal-form
+
+    .ui.modal#progress-modal
+      .header 照片上傳進度
+      .content
+        .ui.progress.teal
+          .bar
+          .label 0 %
+    
+    .ui.modal#report-modal
       .header 檢舉內容
-      .content#region
+      .content
         .ui.form
-          .field
+          .field#region
             label 違規所在行政區
             select(name="region").ui.search.dropdown
               option(value="") 違規現場所在行政區
@@ -112,12 +117,12 @@ html
               option(value="35") 鹽水區
               option(value="36") 麻豆區
               option(value="37") 龍崎區
-          .field#theme
+          .field#subject
             label 違規內容
             .ui.selection.dropdown
               .default.text 請選擇違規內容
               i.dropdown.icon 
-              input(type="hidden" name="theme")
+              input(type="hidden" name="subject")
               .menu
                 .item(data-value="1") 紅線停車
                 .item(data-value="2") 黃線停車
@@ -136,17 +141,12 @@ html
           .field#anonymous
             .ui.toggle.checkbox
               input(type="checkbox" name="anonymous")
-              label 匿名將檢舉顯示於首頁
-      .actions
+              label 匿名將檢舉公開顯示於首頁
+          .ui.error.message
+            .header 
+      .actions.our-centered
         .ui.button.red.deny 取消
         .ui.button.green.approve 確定
-    .ui.modal.small#modal-submit
-      .header 檢舉成功
-      .content
-        .description.out-centered
-          .ui.header.large.our-centered 感謝您的檢舉 !
-      .actions
-        .ui.button.teal.approve 確定
 
     script(src='app.js')
     if js

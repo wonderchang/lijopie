@@ -52,7 +52,7 @@ CREATE TABLE `report` (
   `user_id` int(11) DEFAULT NULL,
   `number` varchar(32) DEFAULT NULL,
   `region_id` int(11) DEFAULT NULL,
-  `theme_id` int(11) DEFAULT NULL,
+  `subject_id` int(11) DEFAULT NULL,
   `content` varchar(256) DEFAULT NULL,
   `progress_id` int(11) DEFAULT NULL,
   `picture` varchar(256) DEFAULT NULL,
@@ -75,28 +75,28 @@ LOCK TABLES `report` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `theme`
+-- Table structure for table `subject`
 --
 
-DROP TABLE IF EXISTS `theme`;
+DROP TABLE IF EXISTS `subject`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `theme` (
-  `theme_id` int(11) NOT NULL AUTO_INCREMENT,
-  `theme_name` varchar(128) DEFAULT NULL,
+CREATE TABLE `subject` (
+  `subject_id` int(11) NOT NULL AUTO_INCREMENT,
+  `subject_name` varchar(128) DEFAULT NULL,
   `active` int(1) DEFAULT '1',
-  PRIMARY KEY (`theme_id`)
+  PRIMARY KEY (`subject_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `theme`
+-- Dumping data for table `subject`
 --
 
-LOCK TABLES `theme` WRITE;
-/*!40000 ALTER TABLE `theme` DISABLE KEYS */;
-INSERT INTO `theme` VALUES (1,'紅線停車',1),(2,'黃線停車',1),(3,'公車站牌10公尺內停車',1),(4,'交叉路口10公尺內停車',1),(5,'行人穿越道10公尺內停車',1),(6,'黃線併排',1),(7,'紅線併排',1),(8,'消防栓前停車',1),(9,'彎道停車',1),(10,'人行道停車',1),(11,'停在殘障車位',1);
-/*!40000 ALTER TABLE `theme` ENABLE KEYS */;
+LOCK TABLES `subject` WRITE;
+/*!40000 ALTER TABLE `subject` DISABLE KEYS */;
+INSERT INTO `subject` VALUES (1,'紅線停車',1),(2,'黃線停車',1),(3,'公車站牌10公尺內停車',1),(4,'交叉路口10公尺內停車',1),(5,'行人穿越道10公尺內停車',1),(6,'黃線併排',1),(7,'紅線併排',1),(8,'消防栓前停車',1),(9,'彎道停車',1),(10,'人行道停車',1),(11,'停在殘障車位',1);
+/*!40000 ALTER TABLE `subject ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
