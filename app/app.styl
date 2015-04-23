@@ -6,10 +6,23 @@ $yellow = #F9D510
   padding-top 39px
 
 .container
-  padding 16vh
+  padding 16vh 2vh
 
 .container-top
   padding 2vh
+
+@media (max-width: 979px)
+  .container
+    padding 16vh 2vh
+  .container-top
+    padding 2vh
+
+@media (min-width: 980px)
+  .container
+    padding 16vh
+  .container-top
+    padding 2vh 16vh
+
 
 .full-screen
   height 100%
@@ -53,3 +66,8 @@ $yellow = #F9D510
   border-radius 0px
   background-color $green
 
+#menu-list
+#before-login-setting-list
+#after-login-setting-list
+  z-index 1000
+  !important
