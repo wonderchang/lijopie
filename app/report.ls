@@ -1,23 +1,14 @@
-if 1 isnt cookie.check! then location.href = "#{path.dirname!}login.html"
+if 1 isnt cookie.check! then location.href = path.dirname!+\login.html
 
-if 840 < window.inner-width
-  $ '#report .grid' .add-class \four .add-class \column
-else if 480 <= window.inner-width <= 840
-  $ '#report .grid' .add-class \two .add-class \column
-else if window.inner-width < 480
-  $ '#report .grid' .add-class \one  .add-class \column
-
-$ window .resize ->
-  $ '.grid' .remove-class \column
-    .remove-class \one
-    .remove-class \two
-    .remove-class \four
+$ window .resize !->
+  $ '.grid' .remove-class 'column one two four'
   if 840 < window.inner-width
-    $ '#report .grid' .add-class \four .add-class \column
+    $ '#report .grid' .add-class 'four column'
   else if 480 <= window.inner-width <= 840
-    $ '#report .grid' .add-class \two .add-class \column
+    $ '#report .grid' .add-class 'two  column'
   else if window.inner-width < 480
-    $ '#report .grid' .add-class \one  .add-class \column
+    $ '#report .grid' .add-class 'one  column'
+.resize!
 
 $ document .ready ->
 
