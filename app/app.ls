@@ -69,7 +69,7 @@ $ \#file-to-upload .change ->
   $ \#progress .progress percent: percent
 
 !function upload-complete
-  photo := it.current-target.response
+  console.log photo := it.current-target.response
   set-timeout !->
     modal-photo photo
     $ \#progress .progress percent: 0
