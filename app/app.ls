@@ -52,11 +52,11 @@ $ \.start-report .click !->
 
 $ \#file-to-upload .change !->
 
-  $ \#progress-modal .modal \show .modal closable: false
-
-  fd = new Form-data!; photo = ''; wait = 800
+  fd = new Form-data!; photo = ''; wait = 600; duration = 300
   file = document.get-element-by-id(\file-to-upload).files.0
   fd.append \photo, file
+
+  if !file then return
 
   if file.type isnt /image\/(jpeg|jpg|png|bmp|gif)/
     return show-msg-modal '照片格式須為 .png, .jpg, jpeg, bmp'
@@ -64,6 +64,8 @@ $ \#file-to-upload .change !->
     return show-msg-modal '照片大小須小於 5 MB'
 
   xhr = new XML-http-request!
+
+  $ \#progress-modal .modal \show .modal closable: false, duration: duration
 
   xhr.upload.add-event-listener \progress, !->
     percent = Math.round it.loaded * 100 / it.total
@@ -73,12 +75,13 @@ $ \#file-to-upload .change !->
 
   xhr.add-event-listener \load, !->
     photo := it.current-target.response
-    $ \#progress-modal .modal \hide
+    $ \#progress-modal .modal \hide .modal duration: duration
     $ '#verify-modal .header' .html \照片檢視
     $ '#verify-modal .content' .html "<img src='uploads/#photo' style='width: 100%'>"
     set-timeout !->
       $ \#verify-modal .modal do
         closable: false
+        duration: duration
         on-approve: show-report-modal
       .modal \show
       $ \#progress .progress percent: 0
@@ -99,13 +102,14 @@ $ \#file-to-upload .change !->
 
   !function show-msg-modal
     $ '#msg-modal .content' .html it
-    $ '#msg-modal' .modal \show
+    $ '#msg-modal' .modal \show .modal duration: duration
 
   !function show-report-modal
-    $ \#verify-modal .modal \hide
+    $ \#verify-modal .modal \hide .modal duration: duration
     set-timeout !->
       $ \#report-modal .modal do
         closable: false
+        duration: duration
         on-approve: send-report
       .modal \show
       $ \.dropdown .dropdown!
@@ -137,7 +141,7 @@ $ \#file-to-upload .change !->
       type: \POST
       data: data
       before-send: !->
-        $ \#report-modal .modal \hide
+        $ \#report-modal .modal \hide .modal duration: duration
       success: !->
         switch parseInt it
         | 0 => set-timeout (!-> show-msg-modal "<h1 class='ui header red  '><i class='icon close    '></i>檢舉失敗</h1>"), wait

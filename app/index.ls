@@ -28,5 +28,5 @@ $.ajax do
         img: i.picture
         time: i.reporttime
         region: i.region_name
-        type: i.theme_name
+        subject: i.subject_name
         content: i.content
