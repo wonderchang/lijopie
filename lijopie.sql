@@ -96,7 +96,7 @@ CREATE TABLE `subject` (
 LOCK TABLES `subject` WRITE;
 /*!40000 ALTER TABLE `subject` DISABLE KEYS */;
 INSERT INTO `subject` VALUES (1,'紅線停車',1),(2,'黃線停車',1),(3,'公車站牌10公尺內停車',1),(4,'交叉路口10公尺內停車',1),(5,'行人穿越道10公尺內停車',1),(6,'黃線併排',1),(7,'紅線併排',1),(8,'消防栓前停車',1),(9,'彎道停車',1),(10,'人行道停車',1),(11,'停在殘障車位',1);
-/*!40000 ALTER TABLE `subject ENABLE KEYS */;
+/*!40000 ALTER TABLE `subject` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
