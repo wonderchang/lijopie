@@ -147,6 +147,7 @@ $ \#file-to-upload .change !->
         $ \#loading .modal \show
       success: !->
         $ \#loading .modal \hide
+        console.log it
         switch parseInt it
         | 0 =>
           $ '#result .icon'   .add-class 'red close' .remove-class 'green checkmark'
