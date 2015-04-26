@@ -21,14 +21,23 @@ Illegal parking reporting platform for tainan city
           $pass = '';
 
         ?>
+* Required some tools
+
+  For Linux
+        
+        $ apt-get install imagemagick
+
+  For Mac, use brew to install
+        
+        $ brew install imagemagick
 
 * Follow instructions below
 
         $ mkdir public/uploads  && chmod 777 public/uploads
         $ mkdir public/session  && chmod 777 public/session
         $ mkdir public/response && chmod 777 public/response
-        $ sudo apt-get install imagemagick
         $ npm i
+        & npm start
 
 * Soft link the `public/` in your server directory, link the directory
 
