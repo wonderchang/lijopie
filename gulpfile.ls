@@ -72,30 +72,54 @@ gulp.task \res ->
     .pipe gulp.dest paths.build+\/res
 
 !function get-cookie
+
   url = "http://www.tnpd.gov.tw/chinese/home.jsp?serno=201012130069&mserno=201012130066&menudata=TncgbMenu&contlink=ap/mail1.jsp&level2=Y"
   user-agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36"
-  data = fs.read-file-sync paths.build+\/php/db-info.php, \utf8; db = {}
-  if data is /.*\$host = '(.+?)';.*/ then db.host = that.1
-  if data is /.*\$user = '(.+?)';.*/ then db.user = that.1
-  if data is /.*\$name = '(.+?)';.*/ then db.database = that.1
-  if data is /.*\$pass = '(.+?)';.*/ then db.password = that.1
-  connection = mysql.create-connection db; connection.connect!
-  phantom.create (ph) ->
-    ph.create-page (page) ->
-      page.set \setting, user-agent: user-agent
-      page.open url, ->
-        page.get-cookies ->
-          output = name: it.0.name, value: it.0.value
-          page.get-content (content) ->
-            session-name = new Date! .get-time!
-            fs.write-file paths.build+"/session/#session-name.html", content, (err) ->
-              if err then throw err
-              gulp-util.log "#session-name.html saved."
-            console.log 'start mysql'
-            connection.query 'SELECT * FROM user', (err, rows, fields) !->
-              if err then throw err
-              gulp-util.log rows
-            if content is /.*<b>(\d+)<\/b>.*/ then output.verify = that.1
-            gulp-util.log JSON.stringify output
+
+  gulp-util.log "Starting '#{'get-cookie'.cyan}'..."
+  start-time = new Date! .get-time!
+
+  ph <-! phantom.create
+  page <-! ph.create-page
+  page.set \setting, user-agent: user-agent
+  <-! page.open url
+  <-! page.get-cookies
+  cookie_key = it.0.name; cookie_value = it.0.value
+  content <-! page.get-content
+
+  session_file = 'session/'+(new Date! .get-time!)+'.html'
+
+  fs.write-file paths.build+'/'+session_file, content, (err) ->
+    if err then throw err
+    gulp-util.log "Running  '#{'get-cookie'.cyan}' #session_file saved"
+
+  if content is /.*<b>(\d+)<\/b>.*/
+    verify_code = that.1
+
+    data = fs.read-file-sync paths.build+\/php/db-info.php, \utf8; db = port: 8889
+    if data is /.*\$host = '(.+?)';.*/ then db.host = that.1
+    if data is /.*\$user = '(.+?)';.*/ then db.user = that.1
+    if data is /.*\$name = '(.+?)';.*/ then db.database = that.1
+    if data is /.*\$pass = '(.+?)';.*/ then db.password = that.1
+    connection = mysql.create-connection db; connection.connect!
+
+    err <-! connection.query "LOCK TABLES session WRITE"
+    if err then throw err
+    gulp-util.log "Running  '#{'get-cookie'.cyan}' Lock session table writing"
+
+    sql  = "INSERT INTO session SET "
+    sql += "session_file='#session_file', cookie_key='#cookie_key',"
+    sql += "cookie_value='#cookie_value', verify_code='#verify_code',"
+    sql += "create_time=now()"
+    (err, rows, fields) <-! connection.query sql
+    if err then throw err
+    gulp-util.log "Running  '#{'get-cookie'.cyan}' Insert new cookie into MySQL session table"
+
+    err <-! connection.query "UNLOCK TABLES"
+    if err then throw err
+    gulp-util.log "Running  '#{'get-cookie'.cyan}' Unlock tables"
+    spend = (Math.round ((new Date! .get-time!) - start-time) / 10) / 100
+    gulp-util.log "Finished '#{'get-cookie'.cyan}' after #{spend.to-string!magenta} s"
+    connection.end!
 
 # vi:et:ft=ls:nowrap:sw=2:ts=2

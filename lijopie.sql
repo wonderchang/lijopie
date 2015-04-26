@@ -88,12 +88,11 @@ DROP TABLE IF EXISTS `session`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `session` (
   `session_id` int(11) NOT NULL AUTO_INCREMENT,
-  `file` varchar(256) DEFAULT NULL,
+  `session_file` varchar(256) DEFAULT NULL,
   `cookie_key` varchar(256) DEFAULT NULL,
   `cookie_value` varchar(256) DEFAULT NULL,
   `verify_code` varchar(256) DEFAULT NULL,
   `create_time` timestamp NULL DEFAULT NULL,
-  `active` int(1) DEFAULT '1',
   PRIMARY KEY (`session_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
