@@ -66,7 +66,6 @@ if($picture1 !== '') { $data['nfile1'] = '@'.realpath("../$picture1"); }
 if($picture2 !== '') { $data['nfile2'] = '@'.realpath("../$picture2"); }
 if($picture3 !== '') { $data['nfile3'] = '@'.realpath("../$picture3"); }
 
-/*
 $url = 'http://www.tnpd.gov.tw/chinese/home.jsp?menudata=TncgbMenu&mserno=201012130066&serno=201012130069&serno3=&serno4=&contlink=ap/mail1_save_new.jsp';
 $user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36";
 $ch = curl_init($url);
@@ -75,13 +74,13 @@ curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 curl_setopt($ch, CURLOPT_USERAGENT, $user_agent);
 curl_setopt($ch, CURLOPT_HEADER, 1);
 curl_setopt($ch, CURLOPT_COOKIE, $session);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 $result = curl_exec($ch);
 $response_file = "../response/$cookie-".time().'.html';
 $fp = fopen($response_file, 'w');
 fwrite($fp, $result);
 fclose($fp);
 curl_close($ch);
-*/
 
 echo 1;
 ?>

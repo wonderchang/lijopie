@@ -25,7 +25,6 @@ DROP TABLE IF EXISTS `region`;
 CREATE TABLE `region` (
   `region_id` int(11) NOT NULL AUTO_INCREMENT,
   `region_name` varchar(12) DEFAULT NULL,
-  `active` int(1) DEFAULT '1',
   `police_code` varchar(256) NOT NULL,
   PRIMARY KEY (`region_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
@@ -37,7 +36,7 @@ CREATE TABLE `region` (
 
 LOCK TABLES `region` WRITE;
 /*!40000 ALTER TABLE `region` DISABLE KEYS */;
-INSERT INTO `region` VALUES (1,'東區',1,'ou=01,ou=tncgb02,o=tncgb,c=tw'),(2,'北區',1,'ou=05,ou=tncgb02,o=tncgb,c=tw'),(3,'南區',1,'ou=06,ou=tncgb02,o=tncgb,c=tw'),(4,'中西區',1,'ou=02,ou=tncgb02,o=tncgb,c=tw'),(5,'安南區',1,'ou=03,ou=tncgb02,o=tncgb,c=tw'),(6,'安平區',1,'ou=04,ou=tncgb02,o=tncgb,c=tw'),(7,'七股區',1,'ou=11,ou=tncgb02,o=tncgb,c=tw'),(8,'下營區',1,'ou=09,ou=tncgb02,o=tncgb,c=tw'),(9,'仁德區',1,'ou=14,ou=tncgb02,o=tncgb,c=tw'),(10,'佳里區',1,'ou=11,ou=tncgb02,o=tncgb,c=tw'),(11,'六甲區',1,'ou=09,ou=tncgb02,o=tncgb,c=tw'),(12,'北門區',1,'ou=12,ou=tncgb02,o=tncgb,c=tw'),(13,'南化區',1,'ou=16,ou=tncgb02,o=tncgb,c=tw'),(14,'善化區',1,'ou=10,ou=tncgb02,o=tncgb,c=tw'),(15,'大內區',1,'ou=10,ou=tncgb02,o=tncgb,c=tw'),(16,'學甲區',1,'ou=12,ou=tncgb02,o=tncgb,c=tw'),(17,'安定區',1,'ou=10,ou=tncgb02,o=tncgb,c=tw'),(18,'官田區',1,'ou=09,ou=tncgb02,o=tncgb,c=tw'),(19,'將軍區',1,'ou=12,ou=tncgb02,o=tncgb,c=tw'),(20,'山上區',1,'ou=13,ou=tncgb02,o=tncgb,c=tw'),(21,'左鎮區',1,'ou=13,ou=tncgb02,o=tncgb,c=tw'),(22,'後壁區',1,'ou=08,ou=tncgb02,o=tncgb,c=tw'),(23,'新化區',1,'ou=13,ou=tncgb02,o=tncgb,c=tw'),(24,'新市區',1,'ou=10,ou=tncgb02,o=tncgb,c=tw'),(25,'新營區',1,'ou=07,ou=tncgb02,o=tncgb,c=tw'),(26,'東山區',1,'ou=08,ou=tncgb02,o=tncgb,c=tw'),(27,'柳營區',1,'ou=07,ou=tncgb02,o=tncgb,c=tw'),(28,'楠西區',1,'ou=16,ou=tncgb02,o=tncgb,c=tw'),(29,'歸仁區',1,'ou=14,ou=tncgb02,o=tncgb,c=tw'),(30,'永康區',1,'ou=15,ou=tncgb02,o=tncgb,c=tw'),(31,'玉井區',1,'ou=16,ou=tncgb02,o=tncgb,c=tw'),(32,'白河區',1,'ou=08,ou=tncgb02,o=tncgb,c=tw'),(33,'西港區',1,'ou=11,ou=tncgb02,o=tncgb,c=tw'),(34,'關廟區',1,'ou=14,ou=tncgb02,o=tncgb,c=tw'),(35,'鹽水區',1,'ou=07,ou=tncgb02,o=tncgb,c=tw'),(36,'麻豆區',1,'ou=09,ou=tncgb02,o=tncgb,c=tw'),(37,'龍崎區',1,'ou=14,ou=tncgb02,o=tncgb,c=tw');
+INSERT INTO `region` VALUES (1,'東區','ou=01,ou=tncgb02,o=tncgb,c=tw'),(2,'北區','ou=05,ou=tncgb02,o=tncgb,c=tw'),(3,'南區','ou=06,ou=tncgb02,o=tncgb,c=tw'),(4,'中西區','ou=02,ou=tncgb02,o=tncgb,c=tw'),(5,'安南區','ou=03,ou=tncgb02,o=tncgb,c=tw'),(6,'安平區','ou=04,ou=tncgb02,o=tncgb,c=tw'),(7,'七股區','ou=11,ou=tncgb02,o=tncgb,c=tw'),(8,'下營區','ou=09,ou=tncgb02,o=tncgb,c=tw'),(9,'仁德區','ou=14,ou=tncgb02,o=tncgb,c=tw'),(10,'佳里區','ou=11,ou=tncgb02,o=tncgb,c=tw'),(11,'六甲區','ou=09,ou=tncgb02,o=tncgb,c=tw'),(12,'北門區','ou=12,ou=tncgb02,o=tncgb,c=tw'),(13,'南化區','ou=16,ou=tncgb02,o=tncgb,c=tw'),(14,'善化區','ou=10,ou=tncgb02,o=tncgb,c=tw'),(15,'大內區','ou=10,ou=tncgb02,o=tncgb,c=tw'),(16,'學甲區','ou=12,ou=tncgb02,o=tncgb,c=tw'),(17,'安定區','ou=10,ou=tncgb02,o=tncgb,c=tw'),(18,'官田區','ou=09,ou=tncgb02,o=tncgb,c=tw'),(19,'將軍區','ou=12,ou=tncgb02,o=tncgb,c=tw'),(20,'山上區','ou=13,ou=tncgb02,o=tncgb,c=tw'),(21,'左鎮區','ou=13,ou=tncgb02,o=tncgb,c=tw'),(22,'後壁區','ou=08,ou=tncgb02,o=tncgb,c=tw'),(23,'新化區','ou=13,ou=tncgb02,o=tncgb,c=tw'),(24,'新市區','ou=10,ou=tncgb02,o=tncgb,c=tw'),(25,'新營區','ou=07,ou=tncgb02,o=tncgb,c=tw'),(26,'東山區','ou=08,ou=tncgb02,o=tncgb,c=tw'),(27,'柳營區','ou=07,ou=tncgb02,o=tncgb,c=tw'),(28,'楠西區','ou=16,ou=tncgb02,o=tncgb,c=tw'),(29,'歸仁區','ou=14,ou=tncgb02,o=tncgb,c=tw'),(30,'永康區','ou=15,ou=tncgb02,o=tncgb,c=tw'),(31,'玉井區','ou=16,ou=tncgb02,o=tncgb,c=tw'),(32,'白河區','ou=08,ou=tncgb02,o=tncgb,c=tw'),(33,'西港區','ou=11,ou=tncgb02,o=tncgb,c=tw'),(34,'關廟區','ou=14,ou=tncgb02,o=tncgb,c=tw'),(35,'鹽水區','ou=07,ou=tncgb02,o=tncgb,c=tw'),(36,'麻豆區','ou=09,ou=tncgb02,o=tncgb,c=tw'),(37,'龍崎區','ou=14,ou=tncgb02,o=tncgb,c=tw');
 /*!40000 ALTER TABLE `region` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -116,7 +115,6 @@ DROP TABLE IF EXISTS `subject`;
 CREATE TABLE `subject` (
   `subject_id` int(11) NOT NULL AUTO_INCREMENT,
   `subject_name` varchar(128) DEFAULT NULL,
-  `active` int(1) DEFAULT '1',
   PRIMARY KEY (`subject_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -127,7 +125,7 @@ CREATE TABLE `subject` (
 
 LOCK TABLES `subject` WRITE;
 /*!40000 ALTER TABLE `subject` DISABLE KEYS */;
-INSERT INTO `subject` VALUES (1,'紅線停車',1),(2,'黃線停車',1),(3,'公車站牌10公尺內停車',1),(4,'交叉路口10公尺內停車',1),(5,'行人穿越道10公尺內停車',1),(6,'黃線併排',1),(7,'紅線併排',1),(8,'消防栓前停車',1),(9,'彎道停車',1),(10,'人行道停車',1),(11,'停在殘障車位',1);
+INSERT INTO `subject` VALUES (1,'紅線停車'),(2,'黃線停車'),(3,'公車站牌10公尺內停車'),(4,'交叉路口10公尺內停車'),(5,'行人穿越道10公尺內停車'),(6,'黃線併排'),(7,'紅線併排'),(8,'消防栓前停車'),(9,'彎道停車'),(10,'人行道停車'),(11,'停在殘障車位');
 /*!40000 ALTER TABLE `subject` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -170,4 +168,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-04-26 16:42:50
+-- Dump completed on 2015-04-27  0:04:48

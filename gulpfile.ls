@@ -96,7 +96,7 @@ gulp.task \res ->
   if content is /.*<b>(\d+)<\/b>.*/
     verify_code = that.1
 
-    data = fs.read-file-sync paths.build+\/php/db-info.php, \utf8; db = port: 8889
+    data = fs.read-file-sync paths.build+\/php/db-info.php, \utf8; db = {}
     if data is /.*\$host = '(.+?)';.*/ then db.host = that.1
     if data is /.*\$user = '(.+?)';.*/ then db.user = that.1
     if data is /.*\$name = '(.+?)';.*/ then db.database = that.1
