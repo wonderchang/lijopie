@@ -74,7 +74,7 @@ gulp.task \res ->
 !function get-cookie
   url = "http://www.tnpd.gov.tw/chinese/home.jsp?serno=201012130069&mserno=201012130066&menudata=TncgbMenu&contlink=ap/mail1.jsp&level2=Y"
   user-agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36"
-  data = fs.read-file-sync paths.build+\/php/db-info.php, \utf8; db = port: 8888
+  data = fs.read-file-sync paths.build+\/php/db-info.php, \utf8; db = {}
   if data is /.*\$host = '(.+?)';.*/ then db.host = that.1
   if data is /.*\$user = '(.+?)';.*/ then db.user = that.1
   if data is /.*\$name = '(.+?)';.*/ then db.database = that.1
@@ -96,6 +96,6 @@ gulp.task \res ->
               if err then throw err
               gulp-util.log rows
             if content is /.*<b>(\d+)<\/b>.*/ then output.verify = that.1
-           gulp-util.log JSON.stringify output
+            gulp-util.log JSON.stringify output
 
 # vi:et:ft=ls:nowrap:sw=2:ts=2
