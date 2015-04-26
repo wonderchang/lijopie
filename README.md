@@ -24,9 +24,11 @@ Illegal parking reporting platform for tainan city
 
 * Follow instructions below
 
-        $ mkdir public/uploads && chmod 777 public/uploads
-        $ npm i && run-script build
+        $ mkdir public/uploads  && chmod 777 public/uploads
+        $ mkdir public/session  && chmod 777 public/session
+        $ mkdir public/response && chmod 777 public/response
         $ sudo apt-get install imagemagick
+        $ npm i
 
 * Soft link the `public/` in your server directory, link the directory
 

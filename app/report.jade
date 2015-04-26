@@ -3,15 +3,122 @@ extends main.jade
 block main
   .wrapper.pusher
 
-    .container-top.our-centered#report
-      .vh6.title-line.our-centered 檢舉紀錄
-      .subcontainer
-        .ui.grid
+    .container-top
+      .vh5.title-line 上傳檢舉照片
+      .ui.grid.two.column
+        .column#picture-1
+          .ui.segment
+            .progress-block.none
+              .ui.progress
+                .bar
+                .label 0 %
+            img.picture.full-width.none
+            .ui.button.blue.full-width#upload-1 車頭照
+        .column#picture-2
+          .ui.segment
+            .progress-block.none
+              .ui.progress
+                .bar
+                .label 0 %
+            img.picture.full-width.none
+            .ui.button.blue.full-width#upload-2 車尾照
+      .ui.grid.one.column
+        .column#picture-3
+          .ui.segment
+            .progress-block.none
+              .ui.progress
+                .bar
+                .label 0 %
+            img.picture.full-width.none
+            .ui.button.blue.full-width#upload-3 再補一刀！
+    .container-top
+      .vh5.title-line 檢舉資料
+      .ui.form
+        .field#region
+          label 違規所在區域
+          .ui.selection.dropdown
+            .default.text 選擇違規現場所在區域
+            i.dropdown.icon 
+            input(type="hidden" name="region")
+            .menu
+              .item(data-value="1") 東區
+              .item(data-value="2") 北區
+              .item(data-value="3") 南區
+              .item(data-value="4") 中西區
+              .item(data-value="5") 安南區
+              .item(data-value="6") 安平區
+              .item(data-value="7") 七股區
+              .item(data-value="8") 下營區
+              .item(data-value="9") 仁德區
+              .item(data-value="10") 佳里區
+              .item(data-value="11") 六甲區
+              .item(data-value="12") 北門區
+              .item(data-value="13") 南化區
+              .item(data-value="14") 善化區
+              .item(data-value="15") 大內區
+              .item(data-value="16") 學甲區
+              .item(data-value="17") 安定區
+              .item(data-value="18") 官田區
+              .item(data-value="19") 將軍區
+              .item(data-value="20") 山上區
+              .item(data-value="21") 左鎮區
+              .item(data-value="22") 後壁區
+              .item(data-value="23") 新化區
+              .item(data-value="24") 新市區
+              .item(data-value="25") 新營區
+              .item(data-value="26") 東山區
+              .item(data-value="27") 柳營區
+              .item(data-value="28") 楠西區
+              .item(data-value="29") 歸仁區
+              .item(data-value="30") 永康區
+              .item(data-value="31") 玉井區 
+              .item(data-value="32") 白河區
+              .item(data-value="33") 西港區
+              .item(data-value="34") 關廟區
+              .item(data-value="35") 鹽水區
+              .item(data-value="36") 麻豆區
+              .item(data-value="37") 龍崎區
+        .field#subject
+          label 違規內容
+          .ui.selection.dropdown
+            .default.text 請選擇違規內容
+            i.dropdown.icon 
+            input(type="hidden" name="subject")
+            .menu
+              .item(data-value="1") 紅線停車
+              .item(data-value="2") 黃線停車
+              .item(data-value="3") 公車站牌10公尺內停車
+              .item(data-value="4") 交叉路口10公尺內停車
+              .item(data-value="5") 行人穿越道10公尺內停車
+              .item(data-value="6") 黃線併排
+              .item(data-value="7") 紅線併排
+              .item(data-value="8") 消防栓前停車
+              .item(data-value="9") 彎道停車
+              .item(data-value="10") 人行道停車
+              .item(data-value="11") 停在殘障車位
+        .field#content
+          label 違規內容補充(ex.車內無人、明確地址...等更加詳細的描述)
+          textarea
+        .field#anonymous
+          .ui.toggle.checkbox
+            input(type="checkbox" name="anonymous")
+            label 匿名將檢舉公開於首頁
+        .ui.error.message
+          .header 
+    .container-top
+      .ui.button.green.full-width#submit 送出
 
-    .ui.small.modal#detail
-      i.close.icon
-      .header 檢舉細節
-      .content
+    form.none(enctype="multipart/form-data" method="post")
+      input#file-to-upload-1(type="file")
+      input#file-to-upload-2(type="file")
+      input#file-to-upload-3(type="file")
+
+    .ui.modal.basic#react
+      .ui.text.loader 資料送件中
+      .content.none
+        .description.our-centered
+          i.icon.massive
+          h1.ui.header
 
 block vars
   - var js = 'report'

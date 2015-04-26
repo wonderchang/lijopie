@@ -8,29 +8,32 @@ $subject_id = filter_escape($_POST['subject']);
 $content = filter_escape($_POST['content']);
 $anonymous = filter_escape($_POST['anonymous']);
 $cookie = filter_escape($_POST['cookie']);
-$photo = filter_escape($_POST['photo']);
+$picture1 = filter_escape($_POST['picture1']);
+$picture2 = filter_escape($_POST['picture2']);
+$picture3 = filter_escape($_POST['picture3']);
 
 $result = mysql_query("SELECT id FROM user WHERE cookie='$cookie'"); 
 $num = mysql_num_rows($result);
-if($num !== 1) return echo 0;
+
+if($num != 1) { return; }
 
 $row = mysql_fetch_assoc($result);
-$user_id = $row['id'];
-$photo = "uploads/$photo";
-$expect = date('Y-m-d', time() + 20 * 86400);
 $result = mysql_query("INSERT INTO report SET
-  user_id=$user_id,
+  user_id={$row['id']},
   region_id=$region_id,
   subject_id=$subject_id,
   content='$content',
   progress_id=0,
-  picture='$photo',
+  picture1='$picture1',
+  picture2='$picture2',
+  picture3='$picture3',
   anonymous=$anonymous,
-  expect='$expect',
-  reporttime=now()
-  ");  
-if(!$result) return echo 0;
+  report_time=now()
+  ");
 
+if(!$result) { echo 2; return; }
+
+echo 1;
 /*
 $data = array(
   'nfile1'   => '@'.realpath("../$photo"),
@@ -39,15 +42,16 @@ $data = array(
   'name'     => 'lijopie',
   'sex'      => '2',
   'email'    => 'lijopie.tw@gmail.com',
-  'tel'      => '½Ð¿é¤J¹q¸Ü',
-  'job'      => '½Ð¿é¤JÂ¾·~',
-  'address'  => '½Ð¿é¤J¦a§}',
-  'subject'  => 'Ås¹D°±¨®',
+  'tel'      => 'è«‹è¼¸å…¥é›»è©±',
+  'job'      => 'è«‹è¼¸å…¥è·æ¥­',
+  'address'  => 'è«‹è¼¸å…¥åœ°å€',
+  'subject'  => 'å½Žé“åœè»Š',
   'region'   => 'ou=01,ou=tncgb02,o=tncgb,c=tw',
   'content1' => '',
-  'content'  => '¨®¤ºµL¤H ±R©ú¸ô¡A¤å¤Æ¬£¥X©Ò®Ç',
+  'content'  => 'è»Šå…§ç„¡äººï¼Œå´‡æ˜Žè·¯ï¼Œæ–‡åŒ–æ´¾å‡ºæ‰€æ—',
   'chkint'   => '81233'
 );
+
 $url = 'http://www.tnpd.gov.tw/chinese/home.jsp?menudata=TncgbMenu&mserno=201012130066&serno=201012130069&serno3=&serno4=&contlink=ap/mail1_save_new.jsp';
 $user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36";
 $ch = curl_init($url);
@@ -57,9 +61,8 @@ curl_setopt($ch, CURLOPT_USERAGENT, $user_agent);
 curl_setopt($ch, CURLOPT_HEADER, 1);
 curl_setopt($ch, CURLOPT_COOKIE, 'JSESSIONID=aevmgy424i7b');
 $result = curl_exec($ch);
+$fp = fopen("$cookie-{$time()}.html");
 var_dump($result);
 curl_close($ch);
-*/
-
-echo 1;
+ */
 ?>

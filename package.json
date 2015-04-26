@@ -6,7 +6,8 @@
     "phantom": "^0.7.2",
     "imap": "^0.8.14",
     "quoted-printable": "^1.0.0",
-    "utf8": "^2.1.0"
+    "utf8": "^2.1.0",
+    "mysql": "^2.6.2"
   },
   "devDependencies": {
     "bower": "~1.4.1",

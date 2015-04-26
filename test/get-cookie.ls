@@ -10,6 +10,6 @@ phantom.create (ph) ->
       page.get-cookies ->
         output = name: it.0.name, value: it.0.value
         page.get-content ->
-          it = it / '\n'
-          if it.873 is /.*<b>(\d+)<\/b>.*/ then output.verify = that.1
+          #it = it / '\n'
+          if it is /.*<b>(\d+)<\/b>.*/ then output.verify = that.1
           console.log output

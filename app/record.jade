@@ -1,0 +1,19 @@
+extends main.jade
+
+block main
+  .wrapper.pusher
+
+    .container-top.our-centered#report
+      .vh6.title-line.our-centered 檢舉紀錄
+      .subcontainer
+        .ui.grid
+
+    .ui.small.modal#detail
+      i.close.icon
+      .header 檢舉細節
+      .content
+
+block vars
+  - var js = 'record'
+
+//- vi:et:nowrap:sw=2:ts=2        

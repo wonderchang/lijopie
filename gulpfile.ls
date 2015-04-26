@@ -1,4 +1,5 @@
 require! <[gulp main-bower-files gulp-concat gulp-filter gulp-jade gulp-livereload gulp-livescript gulp-markdown gulp-print gulp-rename gulp-stylus gulp-util streamqueue tiny-lr]>
+require! <[phantom mysql fs]>
 
 port = 9998
 tiny-lr-port = 35729
@@ -28,6 +29,7 @@ gulp.task \server ->
   express-server.use express.static paths.build
   express-server.listen port
   gulp-util.log "Listening on port: #port"
+  get-cookie!
 
 gulp.task \html ->
   jade = gulp.src paths.app+\/**/*.jade .pipe gulp-jade {+pretty}
@@ -68,5 +70,32 @@ gulp.task \res ->
     .pipe gulp.dest paths.build+\/themes
   gulp.src paths.app+\/res/**
     .pipe gulp.dest paths.build+\/res
+
+!function get-cookie
+  url = "http://www.tnpd.gov.tw/chinese/home.jsp?serno=201012130069&mserno=201012130066&menudata=TncgbMenu&contlink=ap/mail1.jsp&level2=Y"
+  user-agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36"
+  data = fs.read-file-sync paths.build+\/php/db-info.php, \utf8; db = port: 8888
+  if data is /.*\$host = '(.+?)';.*/ then db.host = that.1
+  if data is /.*\$user = '(.+?)';.*/ then db.user = that.1
+  if data is /.*\$name = '(.+?)';.*/ then db.database = that.1
+  if data is /.*\$pass = '(.+?)';.*/ then db.password = that.1
+  connection = mysql.create-connection db; connection.connect!
+  phantom.create (ph) ->
+    ph.create-page (page) ->
+      page.set \setting, user-agent: user-agent
+      page.open url, ->
+        page.get-cookies ->
+          output = name: it.0.name, value: it.0.value
+          page.get-content (content) ->
+            session-name = new Date! .get-time!
+            fs.write-file paths.build+"/session/#session-name.html", content, (err) ->
+              if err then throw err
+              gulp-util.log "#session-name.html saved."
+            console.log 'start mysql'
+            connection.query 'SELECT * FROM user', (err, rows, fields) !->
+              if err then throw err
+              gulp-util.log rows
+            if content is /.*<b>(\d+)<\/b>.*/ then output.verify = that.1
+           gulp-util.log JSON.stringify output
 
 # vi:et:ft=ls:nowrap:sw=2:ts=2
