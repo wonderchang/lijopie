@@ -3,6 +3,7 @@ require! <[phantom mysql fs]>
 
 port = 9998
 tiny-lr-port = 35729
+mysql-port = 8889
 
 paths =
   app: \app
@@ -96,7 +97,7 @@ gulp.task \res ->
   if content is /.*<b>(\d+)<\/b>.*/
     verify_code = that.1
 
-    data = fs.read-file-sync paths.build+\/php/db-info.php, \utf8; db = {}
+    data = fs.read-file-sync paths.build+\/php/db-info.php, \utf8; db = port: mysql-port
     if data is /.*\$host = '(.+?)';.*/ then db.host = that.1
     if data is /.*\$user = '(.+?)';.*/ then db.user = that.1
     if data is /.*\$name = '(.+?)';.*/ then db.database = that.1

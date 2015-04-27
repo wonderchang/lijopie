@@ -15,11 +15,12 @@ $picture3 = filter_escape($_POST['picture3']);
 $result = mysql_query("SELECT id FROM user WHERE cookie='$cookie'"); 
 $num = mysql_num_rows($result);
 
-if($num != 1) { return; }
+if($num != 1) { echo 2; return; }
 
 $row = mysql_fetch_assoc($result);
+$user_id = $row['id'];
 $result = mysql_query("INSERT INTO report SET
-  user_id={$row['id']},
+  user_id=$user_id,
   region_id=$region_id,
   subject_id=$subject_id,
   content='$content',
@@ -78,9 +79,36 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 $result = curl_exec($ch);
 $response_file = "../response/$cookie-".time().'.html';
 $fp = fopen($response_file, 'w');
-fwrite($fp, $result);
+fwrite($fp, $response);
 fclose($fp);
 curl_close($ch);
+
+if(!preg_match("/.*HTTP\/1\.1 200 OK.*/", $response)) { echo 0; return; }
+
+$pattern = "/.*案號<\/label><\/th>\s*<td align=\"left\" class=\"font09\">(\d+)<\/td>.*/";
+if(!preg_match($pattern, $response, $match)) { echo 0; return; }
+$case_id = $match[1];
+
+$pattern = "/.*申辦時間<\/label><\/th>\s*<td align=\"left\" class=\"font09\">(\d\d\d\d-\d\d-\d\d).*?(\d\d:\d\d:\d\d)<\/td>.*/";
+if(!preg_match($pattern, $response, $match)) { echo 0; return; }
+$apply_time = $match[1].' '.$match[2];
+
+$result = mysql_query("UPDATE report SET
+  response_file='$response_file',
+  apply_time='$apply_time',
+  case_id='$case_id'
+  WHERE
+  user_id=$user_id AND
+  region_id=$region_id AND
+  subject_id=$subject_id AND
+  content='$content' AND
+  picture1='$picture1' AND
+  picture2='$picture2' AND
+  picture3='$picture3' AND
+  anonymous=$anonymous
+  ");
+
+if(!$result) { echo 0; return; }
 
 echo 1;
 ?>

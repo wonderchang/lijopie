@@ -60,11 +60,11 @@ CREATE TABLE `report` (
   `anonymous` int(1) DEFAULT NULL,
   `report_time` timestamp NULL DEFAULT NULL,
   `apply_time` timestamp NULL DEFAULT NULL,
-  `apply` varchar(256) DEFAULT NULL,
+  `response_file` varchar(256) DEFAULT NULL,
   `result_time` timestamp NULL DEFAULT NULL,
   `active` int(1) DEFAULT '1',
   `case_id` varchar(256) DEFAULT NULL,
-  `notes` varchar(256) DEFAULT NULL,
+  `result` varchar(512) DEFAULT NULL,
   PRIMARY KEY (`report_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
