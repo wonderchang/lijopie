@@ -32,12 +32,12 @@ Illegal parking reporting platform for tainan city
         $ brew install imagemagick
 
 * Follow instructions below
-
+        
+        $ npm i
+        & npm start
         $ mkdir public/uploads  && chmod 777 public/uploads
         $ mkdir public/session  && chmod 777 public/session
         $ mkdir public/response && chmod 777 public/response
-        $ npm i
-        & npm start
 
 * Soft link the `public/` in your server directory, link the directory
 
