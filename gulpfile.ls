@@ -3,7 +3,7 @@ require! <[phantom mysql fs]>
 
 port = 9998
 tiny-lr-port = 35729
-mysql-port = 3306
+mysql-port = 8889
 
 paths =
   app: \app
