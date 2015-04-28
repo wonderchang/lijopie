@@ -30,9 +30,9 @@ Illegal parking reporting platform for tainan city
         $ vim config.json
 
         {
-          "server-port": 9999,
-          "mysql-port": 3306,
-          "real-report": false
+          "serverPort": 9999,
+          "mysqlPort": 3306,
+          "realReport": false
         }
 
 The `real-report` is used to switch the mode for really sending report to police. When developing, most time you should not really report, or the polices will receive lots of your data. That's not good.
