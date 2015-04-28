@@ -30,8 +30,8 @@ Illegal parking reporting platform for tainan city
         $ vim config.json
 
         {
-          "server-port": "9999",
-          "mysql-port": "3306",
+          "server-port": 9999,
+          "mysql-port": 3306,
           "real-report": false
         }
 
