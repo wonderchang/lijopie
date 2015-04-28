@@ -7,3 +7,4 @@ app/manage.jade
 app/manage.ls
 app/php/manage.php
 test/config.json
+config.json

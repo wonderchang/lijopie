@@ -1,9 +1,3 @@
-if 1 is cookie.check!
-  $ '#cover a' .add-class \start-report .click !->
-    document.get-element-by-id \file-to-upload .click!
-else
-  $ '#cover a' .attr \href, \login.html
-
 $ window .resize ->
   $ '.grid' .remove-class 'column one three four'
   if window.inner-width > 480

@@ -1,9 +1,12 @@
 require! <[gulp main-bower-files gulp-concat gulp-filter gulp-jade gulp-livereload gulp-livescript gulp-markdown gulp-print gulp-rename gulp-stylus gulp-util streamqueue tiny-lr]>
 require! <[phantom mysql fs]>
 
-port = 9998
+config = JSON.parse fs.read-file-sync \config.json, \utf8
+
+mysql-port = 3306
 tiny-lr-port = 35729
-mysql-port = 8889
+port = config.server-port
+if config.mysql-port then mysql-port = config.mysql-port
 
 paths =
   app: \app
@@ -30,7 +33,7 @@ gulp.task \server ->
   express-server.use express.static paths.build
   express-server.listen port
   gulp-util.log "Listening on port: #port"
-  get-cookie!
+  if config.real-report then get-cookie!
 
 gulp.task \html ->
   jade = gulp.src paths.app+\/**/*.jade .pipe gulp-jade {+pretty}
