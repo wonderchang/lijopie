@@ -29,5 +29,9 @@ $ document .ready ->
           region: i.region_name
           subject: i.subject_name
           content: i.content
+          progress: i.progress_id
+          case: i.case_id
+          result-time: i.result_time
+          result: i.result
 
 # vi:ei:ft=ls:nowrap:sw=2:ts=2

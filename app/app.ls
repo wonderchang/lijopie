@@ -50,14 +50,12 @@ $ '#sign-out-btn' .click !->
 !function append-report
   src = it
   img = $ "<div>" .add-class \report-img
-    .css \overflow, \hidden
-    .css \width, \100%
-    .css \height, \240px
-    .css \cursor, \pointer
-    .append (
-      $ "<img>" .attr \src, src.img
-        .css \width, \100%
-    )
+    .css 'width', '100%'
+    .css 'height', '24vh'
+    .css 'background-image', 'url('+src.img+')'
+    .css '-webkit-background-size', 'cover'
+    .css '-moz-background-size', 'cover'
+    .css '-o-background-size', 'cover'
     .on \click, !->
       content = "<img src='#{src.img}' style='width: 100%'>"
       content += "<br><label>時間：#{src.time}</label>"
@@ -76,16 +74,31 @@ $ '#sign-out-btn' .click !->
     .add-class \label
     .text it.region
   subject = $ "<div>" .add-class \ui
-    .add-class \red
+    .add-class \purple
     .add-class \label
+    .text it.subject
+  progress-label = switch parseInt it.progress
+  | 0 => color: \yellow, text: \處理中
+  | 1 => color: \green , text: \檢舉成功
+  | 2 => color: \red   , text: \檢舉失敗
+  progress = $ "<div>" .add-class \ui
+    .add-class \label
+    .add-class progress-label.color
+    .text progress-label.text
+  subject = $ "<div>" .add-class \ui
+    .add-class \label
+    .add-class \purple
     .text it.subject
   column = $ "<div>"
     .add-class \column
     .append-to '#report .grid'
   $ "<div>" .add-class \ui
     .add-class \segment
+    .add-class progress-label.color
+    .add-class \our-centered
     .append img
     .append time
+    .append progress
     .append region
     .append subject
     .append-to column
