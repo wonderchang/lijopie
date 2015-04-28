@@ -1,5 +1,16 @@
 if 1 isnt cookie.check! then location.href = path.dirname!+\login.html
 
+region-list = <[
+  東區   北區   南區   中西區 安南區
+  安平區 七股區 下營區 仁德區 佳里區
+  六甲區 北門區 南化區 善化區 大內區
+  學甲區 安定區 官田區 將軍區 山上區
+  左鎮區 後壁區 新化區 新市區 新營區
+  東山區 柳營區 楠西區 歸仁區 永康區
+  玉井區 白河區 西港區 關廟區 鹽水區
+  麻豆區 龍崎區
+  ]>
+
 $ document .ready ->
   $ \.dropdown .dropdown!
   $ \.checkbox .checkbox!
@@ -51,11 +62,14 @@ $ '.column .button' .click !->
 
 $ \#submit .click !->
   data = do
-    region:    $ '[name=region]'     .val!
     subject:   $ '[name=subject]'    .val!
+    address:   $ '[name=address]'    .val!
+    region:    $ '[name=region]'     .val!
     content:   $ '#content textarea' .val!
     anonymous: $ '[name=anonymous]'  .prop \checked
     cookie:    cookie.get!
+  if marker isnt '' then data.marker = marker.position.to-string! else data.marker = ''
+  if gps isnt '' then data.gps = '('+gps.coords.latitude+', '+gps.coords.longitude+')' else data.gps = ''
   pic =
     * $ '#picture-1 img' .attr \src
     * $ '#picture-2 img' .attr \src
@@ -67,7 +81,8 @@ $ \#submit .click !->
   if data.region   is '' then check-null = false
   if data.subject  is '' then check-null = false
   if data.content  is '' then check-null = false
-  if !check-null then err-msg += \地區、違規事項及內容說明請務必填寫。
+  if data.address  is '' then check-null = false
+  if !check-null then err-msg += \地址、地區、違規事項及內容說明請務必填寫。
   if err-msg isnt ''
     $ '.form .message .header' .html err-msg
     $ \.form .add-class \error
@@ -94,4 +109,59 @@ $ \#submit .click !->
         $ '#react .header' .add-class 'red' .text \檢舉失敗
       $ '#react .content' .add-class \block
       set-timeout (!-> location.href = path.dirname!+\record.html), 3000
+
+$ \#no-people .click !->
+  content = $ '#content textarea' .val!
+  if content isnt '' then content += ', '
+  if content isnt /.*車內無人.*/ then $ '#content textarea' .val content+'車內無人'
+
+address = ''; region = ''; marker = ''; map = null; gps = ''
+$ \#open-map .click !->
+  $ '.main' .css \left, \-100%
+  $ '#header' .css \left, \-100%
+  $ '.right-page' .css \left, \0% .css \display, \block
+  $ '#map-submit' .css \display, \block
+  if map is null then load-map!
+
+  $ \#map-submit .click !->
+    $ this .css \display, \none
+    $ '.right-page' .css \left, \100% .css \display, \none
+    $ '.main' .css \left, \0%
+    $ '#header' .css \left, \0%
+    $ '[name=address]' .val address
+    region-id = 1+region-list.index-of region
+    $ '#region .dropdown' .dropdown 'set selected', region-id
+      .dropdown 'set value', region-id
+
+!function load-map
+  # Init layout
+  script = document.create-element \script
+  script.src = 'https://maps.googleapis.com/maps/api/js?libraries=places&sensor=true&callback=initMap&v=3.exp'
+  document.body.append-child script
+
+!function init-map
+  map := new google.maps.Map (document.get-element-by-id \map), do
+    center: new google.maps.Lat-lng 23.1506238, 120.3458693
+    map-type-id: google.maps.Map-type-id.ROADMAP
+    zoom: 11
+  geocoder  = new google.maps.Geocoder!
+  if navigator.geolocation then navigator.geolocation.get-current-position !->
+    gps := it
+    map.pan-to new google.maps.Lat-lng it.coords.latitude, it.coords.longitude
+    map.set-zoom 17
+
+  google.maps.event.add-listener map, \click, ->
+    if marker then marker.set-map null
+    marker := new google.maps.Marker position: it.lat-lng
+    marker.set-map map
+    get-place-address it.lat-lng
+
+  !function get-place-address place
+    geocoder.geocode lat-lng: place, (r, s) !->
+      if s isnt \OK then return get-place-address place
+      c = r.0.address_components
+      address := r.0.formatted_address
+      region  := c[c.length - 4].long_name
+      info-window = new google.maps.Info-window content: address
+      info-window.open map, marker
 

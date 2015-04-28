@@ -53,6 +53,9 @@ CREATE TABLE `report` (
   `region_id` int(11) DEFAULT NULL,
   `subject_id` int(11) DEFAULT NULL,
   `content` varchar(256) DEFAULT NULL,
+  `address` varchar(256) DEFAULT NULL,
+  `gps` varchar(256) DEFAULT NULL,
+  `marker` varchar(256) DEFAULT NULL,
   `progress_id` int(11) DEFAULT NULL,
   `picture1` varchar(256) DEFAULT NULL,
   `picture2` varchar(256) DEFAULT NULL,
@@ -168,4 +171,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-04-27  0:04:48
+-- Dump completed on 2015-04-29  2:25:43

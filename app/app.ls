@@ -50,6 +50,7 @@ $ '#sign-out-btn' .click !->
 !function append-report
   src = it
   img = $ "<div>" .add-class \report-img
+    .css 'cursor', 'pointer'
     .css 'width', '100%'
     .css 'height', '24vh'
     .css 'background-image', 'url('+src.img+')'
@@ -62,6 +63,11 @@ $ '#sign-out-btn' .click !->
       content += "<br><label>區域：#{src.region}</label>"
       content += "<br><label>事項：#{src.subject}</label>"
       content += "<br><label>內容：#{src.content}</label>"
+      switch parseInt src.progress
+      | 0 => content += "<br><label>進度：處理中</label>"
+      | 1 => content += "<br><label>進度：檢舉成功</label>"
+      | 2 => content += "<br><label>進度：檢舉失敗</label>"
+      if src.result then content += "<br><label>備註：#{src.result}</label>"
       $ '#detail .content' .html content
       $ \#detail .modal \show
   time = $ "<div>" .add-class \ui

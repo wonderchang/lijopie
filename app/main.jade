@@ -51,7 +51,19 @@ html
       a.item#sign-out-btn
         i.sign.out.icon
         | 登出
-    block main
+    .main
+      block main
+
+    if js == 'report'
+      #map.right-page.none
+      #map-submit.ui.button.green.massive.none 確定
+
+      .ui.modal.basic#react
+        .ui.text.loader 資料送件中
+        .content.none
+          .description.our-centered
+            i.icon.massive
+              h1.ui.header
 
     script(src='app.js')
     if js

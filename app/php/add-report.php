@@ -3,14 +3,17 @@ date_default_timezone_set("Asia/Taipei");
 require_once('./db-config.php');
 require_once('./util.php');
 
-$region_id = filter_escape($_POST['region']);
 $subject_id = filter_escape($_POST['subject']);
-$content = filter_escape($_POST['content']);
-$anonymous = filter_escape($_POST['anonymous']);
-$cookie = filter_escape($_POST['cookie']);
-$picture1 = filter_escape($_POST['picture1']);
-$picture2 = filter_escape($_POST['picture2']);
-$picture3 = filter_escape($_POST['picture3']);
+$address    = filter_escape($_POST['address']);
+$region_id  = filter_escape($_POST['region']);
+$content    = filter_escape($_POST['content']);
+$anonymous  = filter_escape($_POST['anonymous']);
+$cookie     = filter_escape($_POST['cookie']);
+$marker     = filter_escape($_POST['marker']);
+$gps        = filter_escape($_POST['gps']);
+$picture1   = filter_escape($_POST['picture1']);
+$picture2   = filter_escape($_POST['picture2']);
+$picture3   = filter_escape($_POST['picture3']);
 
 $result = mysql_query("SELECT id FROM user WHERE cookie='$cookie'"); 
 $num = mysql_num_rows($result);
@@ -24,6 +27,9 @@ $result = mysql_query("INSERT INTO report SET
   region_id=$region_id,
   subject_id=$subject_id,
   content='$content',
+  address='$address',
+  marker='$marker',
+  gps='$gps',
   progress_id=0,
   picture1='$picture1',
   picture2='$picture2',
@@ -60,7 +66,7 @@ $data = array(
   'subject'  => $subject_name,
   'region'   => $police_code,
   'content1' => '',
-  'content'  => $content,
+  'content'  => $adderss+', '+$content,
   'chkint'   => $verify_code
 );
 if($picture1 !== '') { $data['nfile1'] = '@'.realpath("../$picture1"); }
@@ -102,6 +108,9 @@ $result = mysql_query("UPDATE report SET
   region_id=$region_id AND
   subject_id=$subject_id AND
   content='$content' AND
+  address='$address' AND
+  gps='$gps' AND
+  marker='$marker' AND
   picture1='$picture1' AND
   picture2='$picture2' AND
   picture3='$picture3' AND

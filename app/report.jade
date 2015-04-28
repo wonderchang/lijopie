@@ -34,6 +34,28 @@ block main
     .container-top
       .vh5.title-line 檢舉資料
       .ui.form
+        .field#subject
+          label 違規內容
+          .ui.selection.dropdown
+            .default.text 請選擇違規內容
+            i.dropdown.icon 
+            input(type="hidden" name="subject")
+            .menu
+              .item(data-value="1") 紅線停車
+              .item(data-value="2") 黃線停車
+              .item(data-value="3") 公車站牌10公尺內停車
+              .item(data-value="4") 交叉路口10公尺內停車
+              .item(data-value="5") 行人穿越道10公尺內停車
+              .item(data-value="6") 黃線併排
+              .item(data-value="7") 紅線併排
+              .item(data-value="8") 消防栓前停車
+              .item(data-value="9") 彎道停車
+              .item(data-value="10") 人行道停車
+              .item(data-value="11") 停在殘障車位
+        .field#address
+          label 違規位址
+          .ui.button.pink.tiny#open-map 取得目前位置
+          input(name="address" placeholder="違規地址")
         .field#region
           label 違規所在區域
           .ui.selection.dropdown
@@ -78,26 +100,10 @@ block main
               .item(data-value="35") 鹽水區
               .item(data-value="36") 麻豆區
               .item(data-value="37") 龍崎區
-        .field#subject
-          label 違規內容
-          .ui.selection.dropdown
-            .default.text 請選擇違規內容
-            i.dropdown.icon 
-            input(type="hidden" name="subject")
-            .menu
-              .item(data-value="1") 紅線停車
-              .item(data-value="2") 黃線停車
-              .item(data-value="3") 公車站牌10公尺內停車
-              .item(data-value="4") 交叉路口10公尺內停車
-              .item(data-value="5") 行人穿越道10公尺內停車
-              .item(data-value="6") 黃線併排
-              .item(data-value="7") 紅線併排
-              .item(data-value="8") 消防栓前停車
-              .item(data-value="9") 彎道停車
-              .item(data-value="10") 人行道停車
-              .item(data-value="11") 停在殘障車位
         .field#content
-          label 違規內容細節 (例如：車內無人、明確地址等更加詳細的描述)
+          label 違規內容細節 (例如：車內無人等更加詳細的描述)
+          div
+            .ui.button.purple.tiny#no-people 車內無人
           textarea
         .field#anonymous
           .ui.toggle.checkbox
