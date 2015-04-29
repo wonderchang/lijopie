@@ -136,7 +136,7 @@ $ \#open-map .click !->
 !function load-map
   # Init layout
   script = document.create-element \script
-  script.src = 'https://maps.googleapis.com/maps/api/js?libraries=places&sensor=true&callback=initMap&v=3.exp'
+  script.src = 'https://maps.googleapis.com/maps/api/js?libraries=places&sensor=true&callback=initMap&v=3.exp&language=zh-TW'
   document.body.append-child script
 
 !function init-map
