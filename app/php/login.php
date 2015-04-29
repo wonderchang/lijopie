@@ -1,5 +1,5 @@
 <?php
-require_once('./db-config.php');
+require_once('./db-connect.php');
 require_once('./util.php');
 
 $username = filter_escape($_POST['username']);

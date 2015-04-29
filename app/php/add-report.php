@@ -1,6 +1,6 @@
 <?php
 date_default_timezone_set("Asia/Taipei");
-require_once('./db-config.php');
+require_once('./db-connect.php');
 require_once('./util.php');
 
 $subject_id = filter_escape($_POST['subject']);
@@ -57,9 +57,9 @@ $data = array(
   'nfile1'   => '',
   'nfile2'   => '',
   'nfile3'   => '',
-  'name'     => $reporter,
+  'name'     => $report_name,
   'sex'      => '2',
-  'email'    => $reporter_email,
+  'email'    => $report_gmail,
   'tel'      => '請輸入電話',
   'job'      => '請輸入職業',
   'address'  => '請輸入地址',

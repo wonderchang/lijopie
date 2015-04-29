@@ -2,11 +2,7 @@ require! <[gulp main-bower-files gulp-concat gulp-filter gulp-jade gulp-liverelo
 require! <[phantom mysql fs]>
 
 config = JSON.parse fs.read-file-sync \config.json, \utf8
-
-mysql-port = 3306
 tiny-lr-port = 35729
-port = config.server-port
-if config.mysql-port then mysql-port = config.mysql-port
 
 paths =
   app: \app
@@ -21,19 +17,19 @@ gulp.task \watch <[build server]> ->
     return gulp-util.log it if it
   gulp.watch paths.app+\/**/*.jade, <[html]>
   gulp.watch paths.app+\/**/*.styl, <[css]>
-  gulp.watch paths.app+\/**/*.ls, <[js]>
-  gulp.watch paths.app+\/**/*.php, <[php]>
-  gulp.watch paths.app+\/res/**, <[res]>
+  gulp.watch paths.app+\/**/*.ls,   <[js]>
+  gulp.watch paths.app+\/**/*.php,  <[php]>
+  gulp.watch paths.app+\/res/**,    <[res]>
+  gulp.watch \config.json,          <[config]>
 
-gulp.task \build <[html css js php res]>
+gulp.task \build <[html css js php res config cookie]>
 gulp.task \server ->
   require! \express
   express-server = express!
   express-server.use require(\connect-livereload)!
   express-server.use express.static paths.build
-  express-server.listen port
-  gulp-util.log "Listening on port: #port"
-  if config.real-report then get-cookie!
+  express-server.listen config.express.port
+  gulp-util.log "[Service running]: Listening on port #{config.express.port}".yellow
 
 gulp.task \html ->
   jade = gulp.src paths.app+\/**/*.jade .pipe gulp-jade {+pretty}
@@ -75,14 +71,22 @@ gulp.task \res ->
   gulp.src paths.app+\/res/**
     .pipe gulp.dest paths.build+\/res
 
-!function get-cookie
+gulp.task \config ->
+  str =  "<?php\n"
+  str += "$db_host = '#{config.mysql.host}';\n"
+  str += "$db_user = '#{config.mysql.user}';\n"
+  str += "$db_pass = '#{config.mysql.password}';\n"
+  str += "$db_name = '#{config.mysql.database}';\n"
+  str += "$report_name = '#{config.agency.name}';\n"
+  str += "$report_gmail = '#{config.agency.gmail.user}';\n"
+  str += "?>"
+  err <-! fs.write-file paths.build+\/php/config.php, str
+  if err then throw err
 
+gulp.task \cookie ->
+  if !config.system.report then return gulp-util.log '[Developing mode]: Cookie not prepared, can not really report to police'.yellow
   url = "http://www.tnpd.gov.tw/chinese/home.jsp?serno=201012130069&mserno=201012130066&menudata=TncgbMenu&contlink=ap/mail1.jsp&level2=Y"
   user-agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36"
-
-  gulp-util.log "Starting '#{'get-cookie'.cyan}'..."
-  start-time = new Date! .get-time!
-
   ph <-! phantom.create
   page <-! ph.create-page
   page.set \setting, user-agent: user-agent
@@ -95,21 +99,15 @@ gulp.task \res ->
 
   fs.write-file paths.build+'/'+session_file, content, (err) ->
     if err then throw err
-    gulp-util.log "Running  '#{'get-cookie'.cyan}' #session_file saved"
 
   if content is /.*<b>(\d+)<\/b>.*/
     verify_code = that.1
 
-    data = fs.read-file-sync paths.build+\/php/db-info.php, \utf8; db = port: mysql-port
-    if data is /.*\$host = '(.+?)';.*/ then db.host = that.1
-    if data is /.*\$user = '(.+?)';.*/ then db.user = that.1
-    if data is /.*\$name = '(.+?)';.*/ then db.database = that.1
-    if data is /.*\$pass = '(.+?)';.*/ then db.password = that.1
-    connection = mysql.create-connection db; connection.connect!
+    data = fs.read-file-sync paths.build+\/php/db-info.php, \utf8
+    connection = mysql.create-connection config.mysql; connection.connect!
 
     err <-! connection.query "LOCK TABLES session WRITE"
     if err then throw err
-    gulp-util.log "Running  '#{'get-cookie'.cyan}' Lock session table writing"
 
     sql  = "INSERT INTO session SET "
     sql += "session_file='#session_file', cookie_key='#cookie_key',"
@@ -117,13 +115,10 @@ gulp.task \res ->
     sql += "create_time=now()"
     (err, rows, fields) <-! connection.query sql
     if err then throw err
-    gulp-util.log "Running  '#{'get-cookie'.cyan}' Insert new cookie into MySQL session table"
 
     err <-! connection.query "UNLOCK TABLES"
     if err then throw err
-    gulp-util.log "Running  '#{'get-cookie'.cyan}' Unlock tables"
-    spend = (Math.round ((new Date! .get-time!) - start-time) / 10) / 100
-    gulp-util.log "Finished '#{'get-cookie'.cyan}' after #{spend.to-string!magenta} s"
+    gulp-util.log "[Service running]: Get cookie #cookie_key=#cookie_value".yellow
     connection.end!
 
 # vi:et:ft=ls:nowrap:sw=2:ts=2

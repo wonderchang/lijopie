@@ -2,9 +2,4 @@ node_modules/
 bower_components/
 public/
 npm-debug.log
-app/php/db-info.php
-app/manage.jade
-app/manage.ls
-app/php/manage.php
-test/config.json
 config.json
