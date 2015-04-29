@@ -9,33 +9,38 @@ Illegal parking reporting platform for tainan city
 
         $ mysql -u username -p database < lijopie.sql
 
-* Add the database configuration
-        
-        $ vim app/php/db-info.php
-
-        <?php
-
-          $host = '';
-          $user = '';
-          $name = '';
-          $pass = '';
-
-          $reporter = '';
-          $reporter_email = '';
-
-        ?>
-
 * Add the developing configuration
         
         $ vim config.json
 
         {
-          "serverPort": 9999,
-          "mysqlPort": 3306,
-          "realReport": false
+          "express": {        # Express server port
+            "port": 9999
+          },
+          "mysql": {          # MySQL config
+            "port": 3306,
+            "host": "",
+            "user": "",
+            "password": "",
+            "database": ""
+          },
+          "agency": {         # Reporting agency info
+            "name": "",
+            "gmail": {
+              "user": "",
+              "pass": ""
+            }
+          },
+          "system": {         # System mode
+            "report": false,
+            "imap": false
+          }
         }
 
-The `real-report` is used to switch the mode for really sending report to police. When developing, most time you should not really report, or the polices will receive lots of your data. That's not good.
+  `system.report`: Whether really report to police officer or not
+  `system.imap`: Whether receive mail for capture the reporting response mail
+
+  Suggest setting these two system parameter `false` during developing (e.g. front-end), only developing some back-end part required `true`.
 
 * Required some tools
 
