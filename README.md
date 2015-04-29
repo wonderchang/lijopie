@@ -38,6 +38,7 @@ Illegal parking reporting platform for tainan city
         }
 
   `system.report`: Whether really report to police officer or not
+
   `system.imap`: Whether receive mail for capture the reporting response mail
 
   Suggest setting these two system parameter `false` during developing (e.g. front-end), only developing some back-end part required `true`.
