@@ -67,6 +67,7 @@ CREATE TABLE `report` (
   `result_time` timestamp NULL DEFAULT NULL,
   `active` int(1) DEFAULT '1',
   `case_id` varchar(256) DEFAULT NULL,
+  `result_file` varchar(256) DEFAULT NULL,
   `result` varchar(512) DEFAULT NULL,
   PRIMARY KEY (`report_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -22,6 +22,7 @@ if($num != 1) { echo 2; return; }
 
 $row = mysql_fetch_assoc($result);
 $user_id = $row['id'];
+$content = $address.', '.$content;
 $result = mysql_query("INSERT INTO report SET
   user_id=$user_id,
   region_id=$region_id,
@@ -66,28 +67,46 @@ $data = array(
   'subject'  => $subject_name,
   'region'   => $police_code,
   'content1' => '',
-  'content'  => $adderss+', '+$content,
+  'content'  => $content,
   'chkint'   => $verify_code
 );
 if($picture1 !== '') { $data['nfile1'] = '@'.realpath("../$picture1"); }
 if($picture2 !== '') { $data['nfile2'] = '@'.realpath("../$picture2"); }
 if($picture3 !== '') { $data['nfile3'] = '@'.realpath("../$picture3"); }
 
-$url = 'http://www.tnpd.gov.tw/chinese/home.jsp?menudata=TncgbMenu&mserno=201012130066&serno=201012130069&serno3=&serno4=&contlink=ap/mail1_save_new.jsp';
-$user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36";
-$ch = curl_init($url);
-curl_setopt($ch, CURLOPT_POST, 1);
-curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-curl_setopt($ch, CURLOPT_USERAGENT, $user_agent);
-curl_setopt($ch, CURLOPT_HEADER, 1);
-curl_setopt($ch, CURLOPT_COOKIE, $session);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-$result = curl_exec($ch);
+
+if($test_mode) {
+  sleep(3);
+  $file = '../res/response-template.html';
+  $fp = fopen($file, 'r');
+  $response = fread($fp, filesize($file));
+  fclose($fp);
+  $response = str_replace('{{case_id}}', time(), $response);
+  $response = str_replace('{{date}}', date('Y-m-d'), $response);
+  $response = str_replace('{{time}}', date('H:i:s'), $response);
+  $response = str_replace('{{reporter}}', $report_name, $response);
+  $response = str_replace('{{reporter_email}}', $report_gmail, $response);
+  $response = str_replace('{{subject_name}}', $subject_name, $response);
+  $response = str_replace('{{content}}', $content, $response);
+  sleep(3);
+}
+else {
+  $user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36";
+  $url = 'http://www.tnpd.gov.tw/chinese/home.jsp?menudata=TncgbMenu&mserno=201012130066&serno=201012130069&serno3=&serno4=&contlink=ap/mail1_save_new.jsp';
+  $ch = curl_init($url);
+  curl_setopt($ch, CURLOPT_POST, 1);
+  curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+  curl_setopt($ch, CURLOPT_USERAGENT, $user_agent);
+  curl_setopt($ch, CURLOPT_HEADER, 1);
+  curl_setopt($ch, CURLOPT_COOKIE, $session);
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+  $response = curl_exec($ch);
+  curl_close($ch);
+}
 $response_file = "../response/$cookie-".time().'.html';
 $fp = fopen($response_file, 'w');
 fwrite($fp, $response);
 fclose($fp);
-curl_close($ch);
 
 if(!preg_match("/.*HTTP\/1\.1 200 OK.*/", $response)) { echo 0; return; }
 

@@ -1,5 +1,6 @@
 require! <[gulp main-bower-files gulp-concat gulp-filter gulp-jade gulp-livereload gulp-livescript gulp-markdown gulp-print gulp-rename gulp-stylus gulp-util streamqueue tiny-lr]>
-require! <[phantom mysql fs]>
+require! <[phantom mysql fs utf8 quoted-printable]>
+Imap = require \imap
 
 config = JSON.parse fs.read-file-sync \config.json, \utf8
 tiny-lr-port = 35729
@@ -22,7 +23,7 @@ gulp.task \watch <[build server]> ->
   gulp.watch paths.app+\/res/**,    <[res]>
   gulp.watch \config.json,          <[config]>
 
-gulp.task \build <[html css js php res config cookie]>
+gulp.task \build <[html css js php res config cookie crontab]>
 gulp.task \server ->
   require! \express
   express-server = express!
@@ -73,6 +74,10 @@ gulp.task \res ->
 
 gulp.task \config ->
   str =  "<?php\n"
+  str += "$test_mode = '#{config.test.mode}';\n"
+  str += "$test_port = '#{config.test.port}';\n"
+  str += "$test_gmail_user = '#{config.test.gmailUser}';\n"
+  str += "$test_gmail_password = '#{config.test.gmailPassword}';\n"
   str += "$db_host = '#{config.mysql.host}';\n"
   str += "$db_user = '#{config.mysql.user}';\n"
   str += "$db_pass = '#{config.mysql.password}';\n"
@@ -84,7 +89,7 @@ gulp.task \config ->
   if err then throw err
 
 gulp.task \cookie ->
-  if !config.system.report then return gulp-util.log '[Developing mode]: Cookie not prepared, can not really report to police'.yellow
+  if config.test.mode then return gulp-util.log '[Developing mode]: Cookie not prepared, can not really report to police'.yellow
   url = "http://www.tnpd.gov.tw/chinese/home.jsp?serno=201012130069&mserno=201012130066&menudata=TncgbMenu&contlink=ap/mail1.jsp&level2=Y"
   user-agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36"
   ph <-! phantom.create
@@ -120,5 +125,43 @@ gulp.task \cookie ->
     if err then throw err
     gulp-util.log "[Service running]: Get cookie #cookie_key=#cookie_value".yellow
     connection.end!
+
+gulp.task \crontab <[imap]>
+
+gulp.task \imap ->
+  imap = new Imap do
+    user: config.agency.gmail.user
+    password: config.agency.gmail.password
+    host: \imap.gmail.com
+    port: 993
+    tls: true
+  imap.connect!
+  imap.once \error, (err) -> console.log err
+  imap.once \end, -> console.log 'Connection ended'
+  imap.once \ready, ->
+    err, box <-! imap.open-box \INBOX, true
+    if err then throw err
+    err, results <-! imap.search [['FROM', 'police@tnpd.gov.tw']]
+    if err then throw err
+    f = imap.fetch [results.2], bodies: ["HEADER.FIELDS (FROM TO SUBJECT DATE)", "TEXT"]
+
+    f.on \message, (msg, id) ->
+      prefix = "(# #id)"
+      msg.on \body, (stream, info) ->
+        buffer = ''
+        stream.on   \data, -> buffer += str = it.to-string \utf8
+        stream.once \end,  ->
+          console.log \-------------------
+          line = buffer / '\n'
+          if line.2 is /.*Content-Transfer-Encoding: quoted-printable.*/
+            console.log utf8.decode quotedPrintable.decode buffer
+          else
+            console.log header = Imap.parse-header buffer
+      msg.once \end, -> #console.log prefix + 'Finished'
+    f.once 'error', ->
+      console.log "Fetch error: #{it}"
+    f.once 'end',   ->
+      console.log 'Done fetching all messages!'
+      imap.end!
 
 # vi:et:ft=ls:nowrap:sw=2:ts=2

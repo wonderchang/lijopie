@@ -6,8 +6,8 @@ utf8 = require \utf8
 config = JSON.parse fs.read-file-sync \config.json, \utf8
 
 imap = new Imap do
-  user: config.user
-  password: config.pass
+  user: config.agency.gmail.user
+  password: config.agency.gmail.password
   host: \imap.gmail.com
   port: 993
   tls: true
