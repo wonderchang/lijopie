@@ -75,7 +75,6 @@ gulp.task \res ->
 gulp.task \config ->
   str =  "<?php\n"
   str += "$test_mode = '#{config.test.mode}';\n"
-  str += "$test_port = '#{config.test.port}';\n"
   str += "$test_gmail_user = '#{config.test.gmailUser}';\n"
   str += "$test_gmail_password = '#{config.test.gmailPassword}';\n"
   str += "$db_host = '#{config.mysql.host}';\n"

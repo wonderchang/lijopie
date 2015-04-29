@@ -31,17 +31,14 @@ Illegal parking reporting platform for tainan city
               "pass": ""
             }
           },
-          "system": {         # System mode
-            "report": false,
-            "imap": false
+          "test": {           # Testing mode switch
+            "mode": true,
+            "gmailUser": "",
+            "gmailPassword": ""
           }
         }
 
-  `system.report`: Whether really report to police officer or not
-
-  `system.imap`: Whether receive mail for capture the reporting response mail
-
-  Suggest setting these two system parameter `false` during developing (e.g. front-end), only developing some back-end part required `true`.
+  Suggest setting the test mode `true` during developing, or you may really send report to the police officer.
 
 * Required some tools
 
