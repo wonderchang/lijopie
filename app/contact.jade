@@ -2,9 +2,27 @@ extends main.jade
 
 block main
   .wrapper.pusher.full-screen
-
     .container-top.our-centered.img-bg.full-screen
-      .vh6.title-line 由於此平台還在開發中，如有任何問題歡迎聯絡以下此信箱
-      .vh5.title-line lijopie.tw@gmail.com
+      .vh6.title-line 由於此平台還在開發中，如有任何問題歡迎寄信聯絡我們
+      .msgbox
+        .ui.form.mail
+          .ui.field.subject.labeled.input
+            .ui.green.label 主旨
+            input(type="text")
+          .ui.field.from.labeled.input
+            .ui.green.label 信箱
+            input(type="text")
+          .ui.field.name.labeled.input
+            .ui.green.label 稱呼
+            input(type="text")
+          .field.content
+            textarea(placeholder="歡迎回報任何問題以及提供意見給我們" type="text")
+        .ui.buttons(style="margin-top:15px;")
+          .ui.button Clear
+          .or
+          .ui.positive.button Send
+
+block vars
+  - var js = 'contact'
 
 //- vi:et:nowrap:sw=2:ts=2 
