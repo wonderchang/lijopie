@@ -25,14 +25,26 @@ Illegal parking reporting platform for tainan city
             "database": ""
           },
           "agency": {         # Reporting agency info
-            "name": "",
+            "name": "agency-name",
             "gmail": {
-              "user": "",
-              "pass": ""
+              "user": "agency-mail@gmail.com",
+              "password": "agency-mail-password"
             }
           },
+          "manager": [        # Manager list for contacting
+            {
+              "name": "manage1-name",
+              "mail": "manage1@mail"
+            }
+          ],
           "test": {           # Testing mode switch
-            "mode": true
+            "mode": true,
+            "simulator": {
+              "gmail": {
+                "user": "simulator-mail@gmail.com",
+                "password": "simulator-mail-password"
+              }
+            }
           }
         }
 
@@ -40,15 +52,15 @@ Illegal parking reporting platform for tainan city
 
 * Required some tools
 
-        $ git clone git@github.com:PHPMailer/PHPMailer.git app/php/PHPMailer
+  For Ubuntu
 
-  For Linux
-        
         $ apt-get install imagemagick
+        $ curl -sS https://getcomposer.org/installer | php
 
   For Mac, use brew to install
         
         $ brew install imagemagick
+        $ curl -sS https://getcomposer.org/installer | php
 
 * Follow instructions below
         
