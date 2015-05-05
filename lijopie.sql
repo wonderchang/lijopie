@@ -146,7 +146,7 @@ CREATE TABLE `mail`(
 	`email` varchar(128) DEFAULT NULL,
 	`name` varchar(32) DEFAULT NULL,
 	`content` varchar(512) DEFAULT NULL,
-	`sendtime` datetime DEFAULT CURRENT_TIMESTAMP,
+	`sendtime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (`mail_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;	
 /*!40101 SET character_set_client = @saved_cs_client */;
