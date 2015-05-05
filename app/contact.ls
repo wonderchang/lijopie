@@ -13,10 +13,10 @@ $ document .ready ->
 			success: (result) ->
 				console.log result
 				$ '.msgbox' .children!.fade-out 350, ->
-					if result .index-of \Successful isnt -1
+					if (result .index-of \Successful) isnt -1
 						$ '.msgbox' .add-class "vh5"
 												.text "寄件成功!我們將盡快為您服務!"
 												.append "<a href='index.html'>返回首頁</a>"
-					else if result .index-of \Error isnt -1
+					else
 						$ '.msgbox' .add-class \vh5 .text \寄件失敗!我們將盡快修復!
 

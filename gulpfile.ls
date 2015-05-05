@@ -23,7 +23,7 @@ gulp.task \watch <[build server]> ->
   gulp.watch paths.app+\/res/**,    <[res]>
   gulp.watch \config.json,          <[config]>
 
-gulp.task \build <[html css js php res config cookie crontab]>
+gulp.task \build <[html css js php res config cookie crontab composer]>
 gulp.task \server ->
   require! \express
   express-server = express!
@@ -65,6 +65,10 @@ gulp.task \js ->
 gulp.task \php ->
   gulp.src paths.app+\/php/**/*.php
     .pipe gulp.dest paths.build+\/php
+
+gulp.task \composer ->
+  gulp.src \vendor/**
+    .pipe gulp.dest paths.build+\/php/vendor/
 
 gulp.task \res ->
   gulp.src \bower_components/semantic-ui/dist/themes/**

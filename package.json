@@ -35,7 +35,7 @@
   },
   "scripts": {
     "build": "node_modules/.bin/gulp --require LiveScript build",
-    "postinstall": "node_modules/.bin/bower i",
+    "postinstall": "node_modules/.bin/bower i && composer install",
     "start": "node_modules/.bin/gulp --require LiveScript watch",
     "watch": "node_modules/.bin/gulp --require LiveScript watch",
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -1,8 +1,5 @@
 <?php
-	/*	
-		use PHPMailer-ML_v1.7.1_core version
-	*/
-	require_once("./class.phpmailer.php");
+	require_once("./vendor/autoload.php");
 	require_once("./db-connect.php");
 	require_once("./config.php");
 	require_once('./util.php');

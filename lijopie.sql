@@ -152,12 +152,11 @@ CREATE TABLE `mail`(
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data fot `mail`
+-- Dumping data for `mail`
 --
 
 LOCK TABLES `mail` WRITE;
 /*!40000 ALTER TABLE `mail` DISABLE KEYS */;
-INSERT INTO `mail` (subject,email,name,content) VALUES ('get bug','hoho@gmail.com','terry','content');
 /*!40000 ALTER TABLE `mail` ENABLE KEYS */;
 UNLOCK TABLES;
 
