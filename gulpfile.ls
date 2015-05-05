@@ -23,7 +23,7 @@ gulp.task \watch <[build server]> ->
   gulp.watch paths.app+\/res/**,    <[res]>
   gulp.watch \config.json,          <[config]>
 
-gulp.task \build <[html css js php res config cookie crontab]>
+gulp.task \build <[html css js php res config cookie]>
 gulp.task \server ->
   require! \express
   express-server = express!
@@ -74,21 +74,27 @@ gulp.task \res ->
 
 gulp.task \config ->
   str =  "<?php\n"
-  str += "$test_mode = '#{config.test.mode}';\n"
-  str += "$test_gmail_user = '#{config.test.gmailUser}';\n"
-  str += "$test_gmail_password = '#{config.test.gmailPassword}';\n"
+  str += "// Database\n"
   str += "$db_host = '#{config.mysql.host}';\n"
   str += "$db_user = '#{config.mysql.user}';\n"
   str += "$db_pass = '#{config.mysql.password}';\n"
   str += "$db_name = '#{config.mysql.database}';\n"
-  str += "$report_name = '#{config.agency.name}';\n"
-  str += "$report_gmail = '#{config.agency.gmail.user}';\n"
+  str += "\n"
+  str += "// Agency\n"
+  str += "$agency_name = '#{config.agency.name}';\n"
+  str += "$agency_gmail_user = '#{config.agency.gmail.user}';\n"
+  str += "$agency_gmail_password = '#{config.agency.gmail.password}';\n"
+  str += "\n"
+  str += "// Test mode\n"
+  str += "$test_mode = '#{config.test.mode}';\n"
+  str += "$test_simulator_gmail_user = '#{config.test.simulator.gmail.user}';\n"
+  str += "$test_simulator_gmail_password = '#{config.test.simulator.gmail.password}';\n"
   str += "?>"
-  err <-! fs.write-file paths.build+\/php/config.php, str
+  err <-! fs.write-file paths.app+\/php/config.php, str
   if err then throw err
 
 gulp.task \cookie ->
-  if config.test.mode then return gulp-util.log '[Developing mode]: Cookie not prepared, can not really report to police'.yellow
+  if config.test.mode then return gulp-util.log '[Developing mode]: Cookie not prepared, simulating reporting response behaviors'.yellow
   url = "http://www.tnpd.gov.tw/chinese/home.jsp?serno=201012130069&mserno=201012130066&menudata=TncgbMenu&contlink=ap/mail1.jsp&level2=Y"
   user-agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36"
   ph <-! phantom.create
@@ -107,7 +113,6 @@ gulp.task \cookie ->
   if content is /.*<b>(\d+)<\/b>.*/
     verify_code = that.1
 
-    data = fs.read-file-sync paths.build+\/php/db-info.php, \utf8
     connection = mysql.create-connection config.mysql; connection.connect!
 
     err <-! connection.query "LOCK TABLES session WRITE"
@@ -126,7 +131,6 @@ gulp.task \cookie ->
     connection.end!
 
 gulp.task \crontab <[imap]>
-
 gulp.task \imap ->
   imap = new Imap do
     user: config.agency.gmail.user
@@ -142,7 +146,7 @@ gulp.task \imap ->
     if err then throw err
     err, results <-! imap.search [['FROM', 'police@tnpd.gov.tw']]
     if err then throw err
-    f = imap.fetch [results.2], bodies: ["HEADER.FIELDS (FROM TO SUBJECT DATE)", "TEXT"]
+    f = imap.fetch results, bodies: ["HEADER.FIELDS (FROM TO SUBJECT DATE)", "TEXT"]
 
     f.on \message, (msg, id) ->
       prefix = "(# #id)"

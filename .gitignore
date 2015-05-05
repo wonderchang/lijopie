@@ -3,3 +3,5 @@ bower_components/
 public/
 npm-debug.log
 config.json
+app/php/PHPMailer
+app/php/config.php

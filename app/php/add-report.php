@@ -2,6 +2,7 @@
 date_default_timezone_set("Asia/Taipei");
 require_once('./db-connect.php');
 require_once('./util.php');
+require_once('./PHPMailer/PHPMailerAutoload.php');
 
 $subject_id = filter_escape($_POST['subject']);
 $address    = filter_escape($_POST['address']);
@@ -58,9 +59,9 @@ $data = array(
   'nfile1'   => '',
   'nfile2'   => '',
   'nfile3'   => '',
-  'name'     => $report_name,
+  'name'     => $agency_name,
   'sex'      => '2',
-  'email'    => $report_gmail,
+  'email'    => $agency_gmail_user,
   'tel'      => '請輸入電話',
   'job'      => '請輸入職業',
   'address'  => '請輸入地址',
@@ -76,7 +77,6 @@ if($picture3 !== '') { $data['nfile3'] = '@'.realpath("../$picture3"); }
 
 
 if($test_mode) {
-  sleep(3);
   $file = '../res/response-template.html';
   $fp = fopen($file, 'r');
   $response = fread($fp, filesize($file));
@@ -84,11 +84,36 @@ if($test_mode) {
   $response = str_replace('{{case_id}}', time(), $response);
   $response = str_replace('{{date}}', date('Y-m-d'), $response);
   $response = str_replace('{{time}}', date('H:i:s'), $response);
-  $response = str_replace('{{reporter}}', $report_name, $response);
-  $response = str_replace('{{reporter_email}}', $report_gmail, $response);
+  $response = str_replace('{{reporter}}', $agency_name, $response);
+  $response = str_replace('{{reporter_email}}', $agency_gmail_user, $response);
   $response = str_replace('{{subject_name}}', $subject_name, $response);
   $response = str_replace('{{content}}', $content, $response);
-  sleep(3);
+
+  $mail = new PHPMailer;
+  $mail->isSMTP();
+  $mail->Host = 'smtp.gmail.com';
+  $mail->SMTPAuth = true;
+  $mail->Username = $agency_gmail_user;
+  $mail->Password = $agency_gmail_password;
+  $mail->SMTPSecure = 'ssl';
+  $mail->Port = 465;
+
+  $mail->From = $agency_gmail_user;
+  $mail->FromName = '[測試] police';
+  $mail->addAddress($agency_gmail_user);
+
+  $mail->isHTML(true);
+
+  $mail->Subject = '[測試] 臺南市政府警察局-違規舉發';
+  $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
+  $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+  if(!$mail->send()) {
+        echo 'Message could not be sent.';
+            echo 'Mailer Error: ' . $mail->ErrorInfo;
+  } else {
+        echo 'Message has been sent';
+  }
 }
 else {
   $user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36";

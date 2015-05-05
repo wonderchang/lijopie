@@ -32,15 +32,15 @@ Illegal parking reporting platform for tainan city
             }
           },
           "test": {           # Testing mode switch
-            "mode": true,
-            "gmailUser": "",
-            "gmailPassword": ""
+            "mode": true
           }
         }
 
   Suggest setting the test mode `true` during developing, or you may really send report to the police officer.
 
 * Required some tools
+
+        $ git clone git@github.com:PHPMailer/PHPMailer.git app/php/PHPMailer
 
   For Linux
         
