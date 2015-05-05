@@ -9,7 +9,7 @@
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40103 SET TIME_ZONE='+08:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
@@ -131,6 +131,33 @@ LOCK TABLES `subject` WRITE;
 /*!40000 ALTER TABLE `subject` DISABLE KEYS */;
 INSERT INTO `subject` VALUES (1,'紅線停車'),(2,'黃線停車'),(3,'公車站牌10公尺內停車'),(4,'交叉路口10公尺內停車'),(5,'行人穿越道10公尺內停車'),(6,'黃線併排'),(7,'紅線併排'),(8,'消防栓前停車'),(9,'彎道停車'),(10,'人行道停車'),(11,'停在殘障車位');
 /*!40000 ALTER TABLE `subject` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `mail`
+--
+
+DROP TABLE IF EXISTS `mail`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `mail`(
+	`mail_id` int(11) NOT NULL AUTO_INCREMENT, 
+	`subject` varchar(128) DEFAULT NULL,
+	`email` varchar(128) DEFAULT NULL,
+	`name` varchar(32) DEFAULT NULL,
+	`content` varchar(512) DEFAULT NULL,
+	`sendtime` datetime DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY (`mail_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;	
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for `mail`
+--
+
+LOCK TABLES `mail` WRITE;
+/*!40000 ALTER TABLE `mail` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mail` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
