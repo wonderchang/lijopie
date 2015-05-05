@@ -40,6 +40,13 @@ Illegal parking reporting platform for tainan city
 
   Suggest setting the test mode `true` during developing, or you may really send report to the police officer.
 
+* Install PHP package manager - composer
+	
+	For Mac, Linux (globally method)
+				
+        $ curl -sS https://getcomposer.org/installer | php
+        $ mv composer.phar /usr/local/bin/composer
+
 * Required some tools
 
   For Linux
