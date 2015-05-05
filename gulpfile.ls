@@ -23,7 +23,7 @@ gulp.task \watch <[build server]> ->
   gulp.watch paths.app+\/res/**,    <[res]>
   gulp.watch \config.json,          <[config]>
 
-gulp.task \build <[html css js php res config cookie crontab composer]>
+gulp.task \build <[html css js php res config cookie composer]>
 gulp.task \server ->
   require! \express
   express-server = express!
@@ -90,7 +90,7 @@ gulp.task \config ->
   str += "$agency_gmail_password = '#{config.agency.gmail.password}';\n"
   str += "\n"
   str += "// Test mode\n"
-  str += "$test_mode = '#{config.test.mode}';\n"
+  str += "$test_mode = #{config.test.mode};\n"
   str += "$test_simulator_gmail_user = '#{config.test.simulator.gmail.user}';\n"
   str += "$test_simulator_gmail_password = '#{config.test.simulator.gmail.password}';\n"
   str += "?>"
