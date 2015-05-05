@@ -16,7 +16,6 @@ if (isset($_FILES['photo'])) {
   } else {
 	  $fontsize = intval(64 * $width / 1080);
 	  $cmd = "convert ../uploads/$name -channel RGBA -fill orange -stroke black -gravity SouthEast -pointsize $fontsize -annotate +10+5 '$time' ../uploads/$name";
-	  exec($cmd0);
 	  exec($cmd);
   }
   echo $name;
