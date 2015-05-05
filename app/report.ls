@@ -96,6 +96,7 @@ $ \#submit .click !->
     before-send: !->
       $ \#react .modal closable: false .modal \show
     success: !->
+      return console.log it
       $ '#react .ui.text.loader' .remove!
       switch parseInt it
       | 0 =>

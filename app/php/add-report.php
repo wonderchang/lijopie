@@ -1,5 +1,6 @@
 <?php
 date_default_timezone_set("Asia/Taipei");
+require_once("./vendor/autoload.php");
 require_once('./db-connect.php');
 require_once('./util.php');
 
@@ -58,9 +59,9 @@ $data = array(
   'nfile1'   => '',
   'nfile2'   => '',
   'nfile3'   => '',
-  'name'     => $report_name,
+  'name'     => $agency_name,
   'sex'      => '2',
-  'email'    => $report_gmail,
+  'email'    => $agency_gmail_user,
   'tel'      => '請輸入電話',
   'job'      => '請輸入職業',
   'address'  => '請輸入地址',
@@ -74,21 +75,55 @@ if($picture1 !== '') { $data['nfile1'] = '@'.realpath("../$picture1"); }
 if($picture2 !== '') { $data['nfile2'] = '@'.realpath("../$picture2"); }
 if($picture3 !== '') { $data['nfile3'] = '@'.realpath("../$picture3"); }
 
-
 if($test_mode) {
-  sleep(3);
+  
+  $case_id = time();
+  $date    = date('Y-m-d');
+  $time    = date('H:i:s');
+
   $file = '../res/response-template.html';
   $fp = fopen($file, 'r');
   $response = fread($fp, filesize($file));
   fclose($fp);
-  $response = str_replace('{{case_id}}', time(), $response);
-  $response = str_replace('{{date}}', date('Y-m-d'), $response);
-  $response = str_replace('{{time}}', date('H:i:s'), $response);
-  $response = str_replace('{{reporter}}', $report_name, $response);
-  $response = str_replace('{{reporter_email}}', $report_gmail, $response);
+
+  $response = str_replace('{{case_id}}', $case_id, $response);
+  $response = str_replace('{{date}}', $date, $response);
+  $response = str_replace('{{time}}', $time, $response);
+  $response = str_replace('{{reporter}}', $agency_name, $response);
+  $response = str_replace('{{reporter_email}}', $agency_gmail_user, $response);
   $response = str_replace('{{subject_name}}', $subject_name, $response);
   $response = str_replace('{{content}}', $content, $response);
-  sleep(3);
+
+  $file = '../res/mail-template.html';
+  $fp = fopen($file, 'r');
+  $body = fread($fp, filesize($file));
+  fclose($fp);
+  $body = str_replace('{{date}}', $date, $body);
+  $body = str_replace('{{reporter}}', $agency_name, $body);
+  $body = str_replace('{{case_id}}', $case_id, $body);
+  $body = str_replace('{{mail}}', $agency_gmail_user, $body);
+  $body = str_replace('{{subject_name}}', $subject_name, $body);
+  $body = str_replace('{{content}}', $content, $body);
+
+  $mail = new PHPMailer;
+  $mail->isSMTP();
+  $mail->Host = 'smtp.gmail.com';
+  $mail->SMTPAuth = true;
+  $mail->Username = $test_simulator_gmail_user;
+  $mail->Password = $test_simulator_gmail_password;
+  $mail->SMTPSecure = 'ssl';
+  $mail->Port = 465;
+	$mail->CharSet = "utf-8";
+	$mail->Encoding = "base64"; 
+
+  $mail->From = $agency_gmail_user;
+  $mail->FromName = '[測試] police';
+  $mail->addAddress($agency_gmail_user);
+
+  $mail->isHTML(true);
+  $mail->Subject = '[測試] 臺南市政府警察局-違規舉發';
+  $mail->Body    = $body;
+  $mail->send();
 }
 else {
   $user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36";
