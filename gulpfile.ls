@@ -23,7 +23,7 @@ gulp.task \watch <[build server]> ->
   gulp.watch paths.app+\/res/**,    <[res]>
   gulp.watch \config.json,          <[config]>
 
-gulp.task \build <[html css js php res config cookie crontab]>
+gulp.task \build <[html css js php res]>
 gulp.task \server ->
   require! \express
   express-server = express!
