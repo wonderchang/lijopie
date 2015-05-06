@@ -44,7 +44,6 @@ $ '.column .button' .click !->
     , false
 
     xhr.add-event-listener \load, !->
-      console.log it.current-target.response
       $ block .remove-class \block .add-class \none
       $ img   .remove-class \none  .add-class \block
         .attr \src, 'uploads/'+it.current-target.response
@@ -96,7 +95,6 @@ $ \#submit .click !->
     before-send: !->
       $ \#react .modal closable: false .modal \show
     success: !->
-      return console.log it
       $ '#react .ui.text.loader' .remove!
       switch parseInt it
       | 0 =>
