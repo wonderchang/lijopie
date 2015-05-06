@@ -7,17 +7,16 @@ if (isset($_FILES['photo'])) {
   move_uploaded_file($_FILES['photo']['tmp_name'], "../uploads/$name");
 
   $time = date('Y-m-d H:i:s');
-  $width = exec("identify -format %w ../uploads/$name");
-  if ($width>"1080") {
+  exec("identify -format %w ../uploads/$name", $width);
+  if ($width>1080) {
 	  $cmd0 = "convert ../uploads/$name -resize 1080 ../uploads/$name";
-	  $cmd = "convert ../uploads/$name -channel RGBA -fill orange -stroke black -gravity SouthEast -pointsize 64 -annotate +10+5 '$time' ../uploads/$name";
+	  $fontsize = 64;
 	  exec($cmd0);
-	  exec($cmd);
   } else {
-	  $fontsize = intval(64 * $width / 1080);
-	  $cmd = "convert ../uploads/$name -channel RGBA -fill orange -stroke black -gravity SouthEast -pointsize $fontsize -annotate +10+5 '$time' ../uploads/$name";
-	  exec($cmd);
+	  $fontsize = (int)(64 * $width / 1080);
   }
+  $cmd = "convert ../uploads/$name -channel RGBA -fill orange -stroke black -gravity SouthEast -pointsize $fontsize -annotate +10+5 '$time' ../uploads/$name";
+  exec($cmd);
   echo $name;
 }
 else {
