@@ -20,13 +20,15 @@
 	$mail->CharSet = "utf-8";
 	$mail->Encoding = "base64"; 
 
-	$mail->Username = $test_gmail_user;
-	$mail->Password = $test_gmail_password;      
+	$mail->Username = $agency_gmail_user;
+	$mail->Password = $agency_gmail_password;      
 
 	$mail->FromName = $sendername;
 	$mail->Subject = $subject;
 	$mail->Body = $content."\n\n\nFrom: ".$from;
-	$mail->AddAddress($test_gmail_user);       
+	foreach ($manager as $each_manager) {
+		$mail->AddAddress($each_manager['mail'], $each_manager['name']);       
+	}
 
 	mysql_query("INSERT INTO mail (subject,email,name,content) VALUES ('$subject','$from','$sendername','$filted_content')");
 

@@ -89,6 +89,13 @@ gulp.task \config ->
   str += "$agency_gmail_user = '#{config.agency.gmail.user}';\n"
   str += "$agency_gmail_password = '#{config.agency.gmail.password}';\n"
   str += "\n"
+  str += "// manager\n"
+  str += "$manager = array(\n"
+  for each-manager in config.manager
+    str += "  array('name' => '" + each-manager.name + "', 'mail' => '" + each-manager.mail + "'),\n"
+  str = str.slice 0, -2
+  str += "\n"
+  str += ");\n"
   str += "// Test mode\n"
   str += "$test_mode = #{config.test.mode};\n"
   str += "$test_simulator_gmail_user = '#{config.test.simulator.gmail.user}';\n"
