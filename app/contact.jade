@@ -6,21 +6,21 @@ block main
       .vh6.title-line 由於此平台還在開發中，如有任何問題歡迎寄信聯絡我們
       .msgbox.eighty-width
         .ui.form.mail
-          .ui.field.subject.labeled.input
+          .ui.field#subject.labeled.input
             .ui.green.label 主旨
             input(type="text")
-          .ui.field.from.labeled.input
+          .ui.field#from.labeled.input
             .ui.green.label 信箱
             input(type="text")
-          .ui.field.name.labeled.input
+          .ui.field#name.labeled.input
             .ui.green.label 稱呼
             input(type="text")
-          .field.content
+          .field#content
             textarea(placeholder="歡迎回報任何問題以及提供意見給我們" type="text")
         .ui.buttons(style="margin-top:15px;")
-          .ui.leftbtn.button Clear
+          .ui#leftbtn.button Clear
           .or
-          .ui.positive.rightbtn.button Send
+          .ui#rightbtn.button.positive Send
 
 block vars
   - var js = 'contact'

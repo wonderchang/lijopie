@@ -1,10 +1,10 @@
 $ document .ready ->
-	$ '.rightbtn' .click ->
+	$ '#rightbtn' .click ->
 		data = do
-			subject:  $ '.mail .subject input' .val!
-			content:  $ '.mail .content textarea' .val!
-			name:     $ '.mail .name input' .val!
-			from:    	$ '.mail .from input' .val!
+			subject:  $ '.mail #subject input' .val!
+			content:  $ '.mail #content textarea' .val!
+			name:     $ '.mail #name input' .val!
+			from:    	$ '.mail #from input' .val!
 
 		$ '.msgbox' .append "<div class='ui active loader large'></div>"
 
@@ -19,8 +19,9 @@ $ document .ready ->
 												.append "<a href='index.html'>返回首頁</a>"
 					else
 						$ '.msgbox' .add-class \vh5 .text \寄件失敗!我們將盡快修復!
-	$ '.leftbtn' .click ->
-		$ '.mail .subject input' .val ""
-		$ '.mail .content textarea' .val ""
-		$ '.mail .name input' .val ""
-		$ '.mail .from input' .val ""
+
+	$ '#leftbtn' .click ->
+		$ '.mail #subject input' .val ""
+		$ '.mail #content textarea' .val ""
+		$ '.mail #name input' .val ""
+		$ '.mail #from input' .val ""
