@@ -92,7 +92,7 @@ gulp.task \config ->
   str += "// manager\n"
   str += "$manager = array(\n"
   for each-manager in config.manager
-    str += "  array('name' => '" + each-manager.name + "', 'mail' => '" + each-manager.mail + "'),\n"
+    str += "  array('name' => '#{each-manager.name}', 'mail' => '#{each-manager.mail}'),\n"
   str = str.slice 0, -2
   str += "\n"
   str += ");\n"
